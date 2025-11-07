@@ -188,7 +188,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Call Us</h3>
-                    <p className="text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-gray-300">(+254)703920951</p>
                     <p className="text-gray-300">Mon-Fri, 9AM-6PM EST</p>
                   </div>
                 </div>
@@ -200,9 +200,9 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold mb-1">Visit Us</h3>
                     <p className="text-gray-300">
-                      123 Production Street<br />
-                      Creative District<br />
-                      Los Angeles, CA 90028
+                      Nairobi, Kenya<br />
+                      Kiambu Road<br />
+                      P.O Box 12345
                     </p>
                   </div>
                 </div>

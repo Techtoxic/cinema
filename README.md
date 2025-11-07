@@ -12,7 +12,7 @@ A stunning, modern website for H4M Studios featuring cutting-edge design, smooth
 - **Contact Form**: Professional contact form with validation
 - **SEO Optimized**: Built-in metadata and SEO best practices
 
-## 📁 Project Structure
+## 📁 Project Structure modern 
 
 ```
 h4m-studios/

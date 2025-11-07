@@ -91,15 +91,15 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-400">+1 (555) 123-4567</p>
+                  <p className="text-gray-400">+(254)703920951</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
                   <p className="text-gray-400">
-                    123 Production St<br />
-                    Los Angeles, CA 90028
+                    Nyeri town<br />
+                    Nyeri 10100
                   </p>
                 </div>
               </li>

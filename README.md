@@ -31,7 +31,7 @@ A stunning, highly-animated website for B4M Studios featuring cutting-edge desig
 
 - **⚡ Performance Optimized**: Built with Next.js 14 for fast loading and optimal SEO
 
-## 📁 Project Structure
+## 📁 Project Structure modern 
 
 ```
 b4m-studios/

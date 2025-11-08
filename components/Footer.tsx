@@ -91,7 +91,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone size={20} className="text-primary mt-1 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-400">(+254)703920951</p>
+                  <p className="text-gray-400">(+254) 703 920 951</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">

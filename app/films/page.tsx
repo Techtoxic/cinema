@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Film, Play, Award, Clock, Users } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
+import TypingEffect from "@/components/TypingEffect";
 
 const filmProjects = [
   {
@@ -113,13 +114,22 @@ export default function FilmsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
+    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Show content after loaders complete
+    if (!isLoading && !showSlider) {
+      setTimeout(() => setShowContent(true), 100);
+    }
+  }, [isLoading, showSlider]);
 
   const categories = ["All", "Commercial", "Music Video", "Documentary", "Event"];
   
@@ -138,9 +148,9 @@ export default function FilmsPage() {
         />
       )}
 
-      <main className={`min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 transition-opacity duration-300 ${(isLoading || showSlider) ? 'opacity-0' : 'opacity-100'}`}>
+      <main className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
         {/* Hero Header */}
-        <section className="container mx-auto px-6 mb-20">
+        <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -162,13 +172,13 @@ export default function FilmsPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-3xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-3 md:mb-6 leading-tight"
+              className="text-2xl md:text-4xl lg:text-6xl font-display font-bold text-white mb-3 md:mb-6 leading-tight"
             >
-              Stories That
-              <br />
-              <span className="bg-gradient-to-r from-amber-400 via-orange-500 to-amber-600 bg-clip-text text-transparent animate-pulse-glow">
-                Move People
-              </span>
+              <TypingEffect 
+                text="STORIES THAT MOVE PEOPLE" 
+                speed={80}
+                className="block"
+              />
             </motion.h1>
 
             <motion.p
@@ -210,12 +220,12 @@ export default function FilmsPage() {
         </section>
 
         {/* Category Filter */}
-        <section className="container mx-auto px-6 mb-12">
+        <section className="container mx-auto px-4 md:px-6 mb-6 md:mb-12">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="flex justify-center gap-4 flex-wrap"
+            className="flex justify-center gap-2 md:gap-4 flex-wrap"
           >
             {categories.map((cat) => (
               <motion.button
@@ -223,7 +233,7 @@ export default function FilmsPage() {
                 onClick={() => setSelectedCategory(cat)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-semibold transition-all duration-300 ${
+                className={`px-2.5 py-1 md:px-3 md:py-1.5 lg:px-6 lg:py-3 rounded-full text-[10px] md:text-xs lg:text-base font-semibold transition-all duration-300 ${
                   selectedCategory === cat
                     ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/50"
                     : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20"
@@ -351,15 +361,15 @@ export default function FilmsPage() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="container mx-auto px-6 mt-24"
+          className="container mx-auto px-4 md:px-6 mt-12 md:mt-24"
         >
-          <div className="relative overflow-hidden rounded-3xl p-16 text-center bg-gradient-to-br from-amber-500 via-orange-600 to-amber-700">
+          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl p-8 md:p-16 text-center bg-gradient-to-br from-amber-500 via-orange-600 to-amber-700">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"
+              className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-white/10 rounded-full blur-3xl"
             />
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 md:mb-6 relative z-10">
+            <h2 className="text-xl md:text-3xl lg:text-5xl font-display font-bold text-white mb-3 md:mb-6 relative z-10">
               Ready to Tell Your Story?
             </h2>
             <p className="text-white/90 text-xs md:text-base lg:text-xl mb-4 md:mb-8 relative z-10">

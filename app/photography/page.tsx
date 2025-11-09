@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Aperture, Zap, Sun } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
+import TypingEffect from "@/components/TypingEffect";
 
 const photographyProjects = [
   {
@@ -118,13 +119,22 @@ export default function PhotographyPage() {
   const [showSlider, setShowSlider] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
+    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Show content after loaders complete
+    if (!isLoading && !showSlider) {
+      setTimeout(() => setShowContent(true), 100);
+    }
+  }, [isLoading, showSlider]);
 
   const categories = ["All", "Fashion", "Street", "Nature", "Food", "Architecture", "Lifestyle", "Sports", "Product"];
   
@@ -165,9 +175,14 @@ export default function PhotographyPage() {
         )}
       </AnimatePresence>
 
-      <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100">
-        {/* Hero Header */}
-        <section className="container mx-auto px-6 mb-20">
+      <main 
+        className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ backgroundColor: "var(--color-surface)" }}
+      >
+        {/* Hero Header - Much smaller on mobile */}
+        <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -179,41 +194,44 @@ export default function PhotographyPage() {
                 y: [0, -10, 0],
               }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-gray-900 to-slate-800 rounded-full shadow-lg"
+              className="inline-flex items-center gap-2 md:gap-3 mb-3 md:mb-6 px-3 py-1.5 md:px-6 md:py-3 rounded-full shadow-lg"
+              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
             >
-              <Camera className="text-amber-400" size={28} />
-              <span className="text-white font-semibold text-lg">PHOTOGRAPHY</span>
+              <Camera className="text-white" size={16} className="md:w-7 md:h-7" />
+              <span className="text-white font-semibold text-xs md:text-lg">PHOTOGRAPHY</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-6xl md:text-8xl font-display font-bold text-slate-900 mb-6 leading-tight"
+              className="text-2xl md:text-4xl lg:text-6xl font-display font-bold mb-3 md:mb-6 leading-tight"
+              style={{ color: "var(--color-text)" }}
             >
-              Capturing
-              <br />
-              <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
-                Perfect Moments
-              </span>
+              <TypingEffect 
+                text="CAPTURING PERFECT MOMENTS" 
+                speed={80}
+                className="block"
+              />
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-xl text-slate-700 max-w-3xl mx-auto mb-12"
+              className="text-xs md:text-base lg:text-xl max-w-3xl mx-auto mb-6 md:mb-12"
+              style={{ color: "var(--color-text-secondary)" }}
             >
               From fashion to nature, products to portraits — we create stunning imagery 
               that tells powerful stories and evokes emotion.
             </motion.p>
 
-            {/* Specialty Grid */}
+            {/* Specialty Grid - Smaller on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex justify-center gap-8 flex-wrap"
+              className="flex justify-center gap-3 md:gap-8 flex-wrap"
             >
               {[
                 { icon: Aperture, label: "Professional Equipment", color: "from-blue-500 to-cyan-600" },
@@ -225,23 +243,23 @@ export default function PhotographyPage() {
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   className="text-center"
                 >
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} mb-3 shadow-lg`}>
-                    <feature.icon className="text-white" size={28} />
+                  <div className={`inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.color} mb-1.5 md:mb-3 shadow-lg`}>
+                    <feature.icon className="text-white" size={16} className="md:w-7 md:h-7" />
                   </div>
-                  <div className="text-sm font-semibold text-slate-700">{feature.label}</div>
+                  <div className="text-[9px] md:text-sm font-semibold" style={{ color: "var(--color-text)" }}>{feature.label}</div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
         </section>
 
-        {/* Category Filter */}
-        <section className="container mx-auto px-6 mb-12">
+        {/* Category Filter - Smaller on mobile */}
+        <section className="container mx-auto px-4 md:px-6 mb-6 md:mb-12">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="flex justify-center gap-3 flex-wrap"
+            className="flex justify-center gap-2 md:gap-3 flex-wrap"
           >
             {categories.map((cat) => (
               <motion.button
@@ -249,11 +267,20 @@ export default function PhotographyPage() {
                 onClick={() => setSelectedCategory(cat)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
+                className={`px-2.5 py-1 md:px-5 md:py-2 rounded-full font-semibold text-[10px] md:text-sm transition-all duration-300 ${
                   selectedCategory === cat
-                    ? "bg-gradient-to-r from-slate-800 to-gray-900 text-white shadow-lg"
-                    : "bg-white text-slate-700 border-2 border-slate-200 hover:border-slate-300"
+                    ? "text-white shadow-lg"
+                    : "border-2"
                 }`}
+                style={
+                  selectedCategory === cat
+                    ? { background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }
+                    : {
+                        backgroundColor: "var(--color-bg)",
+                        borderColor: "var(--color-border)",
+                        color: "var(--color-text)"
+                      }
+                }
               >
                 {cat}
               </motion.button>
@@ -262,10 +289,10 @@ export default function PhotographyPage() {
         </section>
 
         {/* Photography Grid - Pinterest Style */}
-        <section className="container mx-auto px-6">
+        <section className="container mx-auto px-4 md:px-6">
           <motion.div
             layout
-            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
+            className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3 md:gap-6 space-y-3 md:space-y-6"
           >
             <AnimatePresence mode="popLayout">
               {filteredPhotos.map((photo, index) => (
@@ -284,7 +311,7 @@ export default function PhotographyPage() {
                 >
                   <motion.div
                     whileHover={{ y: -8 }}
-                    className="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500"
+                    className="relative overflow-hidden rounded-xl md:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500"
                   >
                     {/* Image */}
                     <div className="relative overflow-hidden">
@@ -294,10 +321,11 @@ export default function PhotographyPage() {
                         className="w-full h-auto"
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.6 }}
+                        loading="lazy"
                       />
 
                       {/* Category Badge */}
-                      <div className={`absolute top-3 left-3 px-3 py-1 bg-gradient-to-r ${photo.color} text-white text-xs font-bold rounded-full shadow-lg`}>
+                      <div className={`absolute top-2 left-2 md:top-3 md:left-3 px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r ${photo.color} text-white text-[9px] md:text-xs font-bold rounded-full shadow-lg`}>
                         {photo.category}
                       </div>
 
@@ -305,26 +333,26 @@ export default function PhotographyPage() {
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
-                        className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent p-6 flex flex-col justify-end"
+                        className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-3 md:p-6 flex flex-col justify-end"
                       >
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                        <h3 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
                           {photo.title}
                         </h3>
-                        <p className="text-gray-300 text-sm mb-3">
+                        <p className="text-gray-300 text-[10px] md:text-sm mb-2 md:mb-3 line-clamp-2">
                           {photo.description}
                         </p>
-                        <div className="flex items-center justify-between text-xs text-gray-400 mb-3">
+                        <div className="flex items-center justify-between text-[9px] md:text-xs text-gray-400 mb-2 md:mb-3">
                           <span>📷 {photo.photographer}</span>
                           <span>{photo.year}</span>
                         </div>
-                        <div className="text-xs text-amber-400 mb-3">
+                        <div className="text-[9px] md:text-xs mb-2 md:mb-3" style={{ color: "var(--color-primary)" }}>
                           {photo.equipment}
                         </div>
-                        <div className="flex gap-2 flex-wrap">
+                        <div className="flex gap-1 md:gap-2 flex-wrap">
                           {photo.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full"
+                              className="px-1.5 py-0.5 md:px-2 md:py-1 bg-white/20 backdrop-blur-sm text-white text-[9px] md:text-xs rounded-full"
                             >
                               {tag}
                             </span>
@@ -338,18 +366,18 @@ export default function PhotographyPage() {
                         whileHover={{ opacity: 1, scale: 1 }}
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                       >
-                        <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-2xl">
-                          <Camera size={28} className="text-slate-800" />
+                        <div className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-2xl">
+                          <Camera size={16} className="md:w-7 md:h-7" style={{ color: "var(--color-text)" }} />
                         </div>
                       </motion.div>
                     </div>
 
                     {/* Bottom Info Bar */}
-                    <div className="bg-white p-4">
-                      <h3 className="font-bold text-slate-800 text-lg mb-1">
+                    <div className="p-2 md:p-4" style={{ backgroundColor: "var(--color-bg)", borderTop: "1px solid var(--color-border)" }}>
+                      <h3 className="font-bold text-xs md:text-lg mb-0.5 md:mb-1" style={{ color: "var(--color-text)" }}>
                         {photo.title}
                       </h3>
-                      <p className="text-sm text-slate-600">
+                      <p className="text-[10px] md:text-sm" style={{ color: "var(--color-text-secondary)" }}>
                         {photo.client}
                       </p>
                     </div>
@@ -360,18 +388,19 @@ export default function PhotographyPage() {
           </motion.div>
         </section>
 
-        {/* Services Section */}
+        {/* Services Section - Smaller */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="container mx-auto px-6 mt-24"
+          className="container mx-auto px-4 md:px-6 mt-12 md:mt-24"
         >
-          <h2 className="text-5xl font-display font-bold text-center mb-16 text-slate-900">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-center mb-6 md:mb-16"
+            style={{ color: "var(--color-text)" }}>
             Photography Services
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
             {[
               {
                 title: "Commercial",
@@ -396,26 +425,31 @@ export default function PhotographyPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2 }}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className="p-8 bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all"
+                className="p-4 md:p-8 rounded-2xl md:rounded-3xl shadow-lg hover:shadow-2xl transition-all border"
+                style={{ 
+                  backgroundColor: "var(--color-bg)",
+                  borderColor: "var(--color-border)"
+                }}
               >
-                <div className="text-6xl mb-4">{service.icon}</div>
-                <h3 className="text-2xl font-bold text-slate-800 mb-3">{service.title}</h3>
-                <p className="text-slate-600">{service.desc}</p>
+                <div className="text-4xl md:text-6xl mb-2 md:mb-4">{service.icon}</div>
+                <h3 className="text-lg md:text-2xl font-bold mb-2 md:mb-3" style={{ color: "var(--color-text)" }}>{service.title}</h3>
+                <p className="text-xs md:text-base" style={{ color: "var(--color-text-secondary)" }}>{service.desc}</p>
               </motion.div>
             ))}
           </div>
         </motion.section>
 
-        {/* CTA */}
+        {/* CTA - Smaller */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="container mx-auto px-6 mt-24"
+          className="container mx-auto px-4 md:px-6 mt-12 md:mt-24"
         >
           <motion.div
             whileHover={{ scale: 1.02 }}
-            className="relative overflow-hidden rounded-3xl p-16 text-center bg-gradient-to-br from-slate-900 via-gray-800 to-slate-900"
+            className="relative overflow-hidden rounded-2xl md:rounded-3xl p-8 md:p-16 text-center"
+            style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
           >
             <motion.div
               animate={{
@@ -423,22 +457,23 @@ export default function PhotographyPage() {
                 scale: [1, 1.2, 1],
               }}
               transition={{ duration: 8, repeat: Infinity }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 md:w-96 h-48 md:h-96 bg-white/10 rounded-full blur-3xl"
             />
 
             <div className="relative z-10">
-              <Camera size={64} className="text-amber-400 mx-auto mb-6" />
-              <h2 className="text-5xl font-display font-bold text-white mb-6">
+              <Camera size={32} className="md:w-16 md:h-16 text-white mx-auto mb-3 md:mb-6" />
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 md:mb-6">
                 Let's Capture Your Vision
               </h2>
-              <p className="text-gray-300 text-xl mb-8 max-w-2xl mx-auto">
+              <p className="text-white/80 text-xs md:text-base lg:text-xl mb-4 md:mb-8 max-w-2xl mx-auto">
                 Professional photography services tailored to your needs
               </p>
               <motion.a
                 href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-block px-10 py-5 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-lg rounded-full shadow-2xl shadow-amber-500/30"
+                className="inline-block px-5 py-2.5 md:px-10 md:py-5 bg-white text-xs md:text-base font-bold rounded-full shadow-2xl"
+                style={{ color: "var(--color-primary)" }}
               >
                 Book a Photo Session
               </motion.a>
@@ -449,4 +484,3 @@ export default function PhotographyPage() {
     </>
   );
 }
-

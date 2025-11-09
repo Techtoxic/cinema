@@ -78,13 +78,22 @@ const creativeProjects = [
 export default function CreativePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
+    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
-    }, 1000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Show content after loaders complete
+    if (!isLoading && !showSlider) {
+      setTimeout(() => setShowContent(true), 100);
+    }
+  }, [isLoading, showSlider]);
 
   return (
     <>
@@ -97,9 +106,9 @@ export default function CreativePage() {
         />
       )}
 
-      <main className={`min-h-screen pt-24 pb-20 transition-opacity duration-300 ${(isLoading || showSlider) ? 'opacity-0' : 'opacity-100'}`} style={{ backgroundColor: "var(--color-surface)" }}>
+      <main className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`} style={{ backgroundColor: "var(--color-surface)" }}>
         {/* Hero Header */}
-        <section className="container mx-auto px-6 mb-20">
+        <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -122,18 +131,19 @@ export default function CreativePage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-3xl md:text-5xl lg:text-7xl font-display font-bold mb-6 leading-tight"
+              className="text-2xl md:text-4xl lg:text-6xl font-display font-bold mb-3 md:mb-6 leading-tight"
             >
-              <span style={{ 
-                background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text"
-              }}>
-                Ideas That
-              </span>
-              <br />
-              <span style={{ color: "var(--color-text)" }}>Transform Brands</span>
+              <TypingEffect 
+                text="IDEAS THAT TRANSFORM BRANDS" 
+                speed={80}
+                className="block"
+                style={{ 
+                  background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text"
+                }}
+              />
             </motion.h1>
 
             <motion.p

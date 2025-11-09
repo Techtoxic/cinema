@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Camera, Award, Users, Zap } from "lucide-react";
+import TypingEffect from "@/components/TypingEffect";
 
 const values = [
   {
@@ -69,14 +70,18 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto"
         >
-          <h1 className="text-3xl md:text-5xl lg:text-7xl font-display font-bold mb-6"
+          <h1 className="text-2xl md:text-4xl lg:text-6xl font-display font-bold mb-3 md:mb-6"
             style={{
               background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text"
             }}>
-            About H4M Studios
+            <TypingEffect 
+              text="ABOUT H4M STUDIOS" 
+              speed={80}
+              className="block"
+            />
           </h1>
           <p className="text-base md:text-xl leading-relaxed mb-8" style={{ color: "var(--color-text-secondary)" }}>
             We are a passionate team of visual storytellers dedicated to creating 

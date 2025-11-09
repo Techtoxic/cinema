@@ -10,25 +10,40 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#F5A623", // Gold/Amber
-          light: "#FFB84D",
-          dark: "#D68910",
+          DEFAULT: "#6366f1",
+          light: "#818cf8",
+          dark: "#4f46e5",
         },
         dark: {
-          DEFAULT: "#0A0A0A",
-          charcoal: "#1A1A1A",
+          DEFAULT: "#0a0a0a",
+          charcoal: "#1a1a1a",
           blue: "#0D1B2A",
           "blue-light": "#1B263B",
         },
         light: {
-          DEFAULT: "#FAFAFA",
-          gray: "#F5F5F5",
-          blue: "#E8EDF2",
+          DEFAULT: "#ffffff",
+          gray: "#f8fafc",
+          blue: "#e8edf2",
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1' }],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
       },
       animation: {
         "fade-in": "fadeIn 0.6s ease-in-out",
@@ -59,4 +74,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-

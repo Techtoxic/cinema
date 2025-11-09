@@ -14,58 +14,87 @@ const videos = [
 
 export default function HeroSection() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [nextVideoIndex, setNextVideoIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
-    // Rotate through videos every 6 seconds
+    // Seamless crossfade every 8 seconds
     const interval = setInterval(() => {
-      setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
-      setIsVideoLoaded(false);
-    }, 6000);
+      setIsTransitioning(true);
+      setNextVideoIndex((currentVideoIndex + 1) % videos.length);
+      
+      setTimeout(() => {
+        setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+        setIsTransitioning(false);
+      }, 1500); // Crossfade duration
+    }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [currentVideoIndex]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background Carousel */}
+    <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
+      {/* Video Background with Seamless Crossfade */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-blue-900/70 to-slate-800/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-[var(--color-primary)]/20 to-black/40 z-10" />
         
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentVideoIndex}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1.2 }}
-            className="absolute inset-0"
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              onLoadedData={() => setIsVideoLoaded(true)}
-              className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.8) contrast(1.1)" }}
-            >
-              <source src={videos[currentVideoIndex]} type="video/mp4" />
-            </video>
-          </motion.div>
-        </AnimatePresence>
+        {/* Current Video */}
+        <video
+          key={`current-${currentVideoIndex}`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            filter: "brightness(0.7) contrast(1.1)",
+            opacity: isTransitioning ? 0 : 1,
+            transition: "opacity 1.5s ease-in-out"
+          }}
+        >
+          <source src={videos[currentVideoIndex]} type="video/mp4" />
+        </video>
 
-        {/* Video indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {/* Next Video (for crossfade) */}
+        {isTransitioning && (
+          <video
+            key={`next-${nextVideoIndex}`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ 
+              filter: "brightness(0.7) contrast(1.1)",
+              opacity: 1,
+              transition: "opacity 1.5s ease-in-out"
+            }}
+          >
+            <source src={videos[nextVideoIndex]} type="video/mp4" />
+          </video>
+        )}
+
+        {/* Video indicators - Smaller */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
           {videos.map((_, index) => (
             <motion.button
               key={index}
-              onClick={() => setCurrentVideoIndex(index)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
+              onClick={() => {
+                setIsTransitioning(true);
+                setNextVideoIndex(index);
+                setTimeout(() => {
+                  setCurrentVideoIndex(index);
+                  setIsTransitioning(false);
+                }, 1500);
+              }}
+              className={`h-1 rounded-full transition-all duration-500 ${
                 index === currentVideoIndex
-                  ? "bg-amber-500 w-12"
-                  : "bg-white/40 w-6 hover:bg-white/60"
+                  ? "w-8"
+                  : "bg-white/40 w-4 hover:bg-white/60"
               }`}
+              style={{
+                backgroundColor: index === currentVideoIndex ? "var(--color-primary)" : undefined
+              }}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
             />
@@ -81,7 +110,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-6 leading-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 leading-tight"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -89,9 +118,9 @@ export default function HeroSection() {
             <motion.span
               animate={{
                 textShadow: [
-                  "0 0 20px rgba(245, 166, 35, 0.5)",
-                  "0 0 40px rgba(245, 166, 35, 0.7)",
-                  "0 0 20px rgba(245, 166, 35, 0.5)",
+                  "0 0 15px var(--color-primary)",
+                  "0 0 30px var(--color-primary)",
+                  "0 0 15px var(--color-primary)",
                 ],
               }}
               transition={{ duration: 2, repeat: Infinity }}
@@ -99,7 +128,7 @@ export default function HeroSection() {
               B4M STUDIOS
             </motion.span>
             <br />
-            <span className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-accent)] bg-clip-text text-transparent">
               Ideas in Motion
             </span>
           </motion.h1>
@@ -108,28 +137,33 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto font-light"
+            className="text-base md:text-lg text-gray-200 mb-6 max-w-2xl mx-auto font-light"
           >
             Creating captivating visual stories that leave lasting impressions.
             <br />
-            <span className="text-amber-400 font-medium">Film • Creative Direction • Photography</span>
+            <span className="font-medium" style={{ color: "var(--color-primary)" }}>
+              Film • Creative Direction • Photography
+            </span>
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-3 justify-center items-center"
           >
             <a
               href="/portfolio"
-              className="px-8 py-4 bg-gradient-gold text-white font-semibold rounded-full hover:scale-105 transition-all duration-300 shadow-2xl shadow-primary/30 min-w-[200px]"
+              className="px-6 py-2.5 text-sm font-semibold rounded-full hover:scale-105 transition-all duration-300 shadow-lg min-w-[160px] text-white"
+              style={{ 
+                background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))"
+              }}
             >
               View Our Work
             </a>
             <a
               href="/contact"
-              className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 border border-white/30 min-w-[200px]"
+              className="px-6 py-2.5 text-sm bg-white/10 backdrop-blur-md text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 border border-white/30 min-w-[160px]"
             >
               Start a Project
             </a>
@@ -137,20 +171,20 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Smaller */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="flex flex-col items-center text-white/70 cursor-pointer hover:text-white transition-colors"
         >
-          <span className="text-sm font-medium mb-2">Scroll to explore</span>
-          <ChevronDown size={24} />
+          <span className="text-xs font-medium mb-1">Scroll</span>
+          <ChevronDown size={18} />
         </motion.div>
       </motion.div>
     </section>

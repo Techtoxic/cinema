@@ -92,8 +92,8 @@ export default function CategoriesShowcase() {
                     transition={{ type: "spring", stiffness: 300 }}
                     className="group relative overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-md border border-white/10 hover:border-amber-500/50 transition-all duration-500 h-full"
                   >
-                    {/* Image Background - Smaller on mobile */}
-                    <div className="aspect-[4/3] md:aspect-[4/3] overflow-hidden relative">
+                    {/* Image Background - Much smaller on mobile */}
+                    <div className="aspect-[16/9] md:aspect-[4/3] overflow-hidden relative">
                       <motion.img
                         src={category.image}
                         alt={category.title}
@@ -138,38 +138,39 @@ export default function CategoriesShowcase() {
                       </motion.div>
                     </div>
 
-                    {/* Content - Smaller padding on mobile */}
-                    <div className="p-4 md:p-8">
-                      <div className={`inline-block px-2 py-1 md:px-4 md:py-1.5 bg-gradient-to-r ${category.color} text-white text-[10px] md:text-xs font-bold rounded-full mb-2 md:mb-4 uppercase tracking-wider`}>
+                    {/* Content - Much smaller on mobile */}
+                    <div className="p-3 md:p-8">
+                      <div className={`inline-block px-2 py-0.5 md:px-4 md:py-1.5 bg-gradient-to-r ${category.color} text-white text-[9px] md:text-xs font-bold rounded-full mb-1.5 md:mb-4 uppercase tracking-wider`}>
                         {category.subtitle}
                       </div>
                       
-                      <h3 className="text-xl md:text-3xl font-display font-bold text-white mb-2 md:mb-3 group-hover:text-amber-400 transition-colors">
+                      <h3 className="text-base md:text-3xl font-display font-bold text-white mb-1.5 md:mb-3 group-hover:text-amber-400 transition-colors">
                         {category.title}
                       </h3>
                       
-                      <p className="text-gray-300 mb-4 md:mb-6 leading-relaxed text-xs md:text-base">
+                      <p className="text-gray-300 mb-2 md:mb-6 leading-tight md:leading-relaxed text-[10px] md:text-base line-clamp-2 md:line-clamp-none">
                         {category.description}
                       </p>
 
-                      {/* Stats - Smaller on mobile */}
-                      <div className="flex gap-3 md:gap-6 pt-3 md:pt-4 border-t border-white/10">
+                      {/* Stats - Much smaller on mobile */}
+                      <div className="flex gap-2 md:gap-6 pt-2 md:pt-4 border-t border-white/10">
                         {Object.entries(category.stats).map(([key, value]) => (
                           <div key={key}>
-                            <div className="text-lg md:text-2xl font-bold text-amber-400">{value}</div>
-                            <div className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">{key}</div>
+                            <div className="text-sm md:text-2xl font-bold text-amber-400">{value}</div>
+                            <div className="text-[8px] md:text-xs text-gray-400 uppercase tracking-wider">{key}</div>
                           </div>
                         ))}
                       </div>
 
-                      {/* View More Link - Smaller on mobile */}
+                      {/* View More Link - Much smaller on mobile */}
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
-                        className="mt-3 md:mt-6 flex items-center gap-2 text-amber-400 text-xs md:text-base font-semibold group-hover:gap-4 transition-all"
+                        className="mt-2 md:mt-6 flex items-center gap-1 md:gap-2 text-amber-400 text-[10px] md:text-base font-semibold group-hover:gap-4 transition-all"
                       >
-                        <span>Explore {category.title}</span>
-                        <ArrowRight size={16} className="md:w-5 md:h-5" />
+                        <span className="hidden md:inline">Explore {category.title}</span>
+                        <span className="md:hidden">View</span>
+                        <ArrowRight size={12} className="md:w-5 md:h-5" />
                       </motion.div>
                     </div>
 

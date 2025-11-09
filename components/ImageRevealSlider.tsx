@@ -10,12 +10,12 @@ interface ImageRevealSliderProps {
 
 export default function ImageRevealSlider({ onComplete, images }: ImageRevealSliderProps) {
   const defaultImages = [
-    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=400&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=400&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=800&h=400&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&h=400&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=400&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&h=400&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&h=600&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&h=600&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=1200&h=600&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&h=600&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=1200&h=600&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1200&h=600&fit=crop&q=80",
   ];
 
   const displayImages = images || defaultImages;

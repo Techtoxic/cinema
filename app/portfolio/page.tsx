@@ -227,8 +227,8 @@ export default function Portfolio() {
       )}
 
       <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
-        {/* Header with Parallax Effect */}
-        <section className="container mx-auto px-6 mb-16 relative">
+        {/* Header - Much smaller on mobile */}
+        <section className="container mx-auto px-6 mb-8 md:mb-16 relative">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -242,7 +242,7 @@ export default function Portfolio() {
               transition={{ duration: 5, repeat: Infinity }}
               className="inline-block"
             >
-              <h1 className="text-6xl md:text-8xl font-display font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-amber-600 bg-clip-text text-transparent bg-[length:200%_auto]">
+              <h1 className="text-3xl md:text-6xl lg:text-8xl font-display font-bold mb-3 md:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-amber-600 bg-clip-text text-transparent bg-[length:200%_auto]">
                 Our Portfolio
               </h1>
             </motion.div>
@@ -250,17 +250,17 @@ export default function Portfolio() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-xl text-slate-700 mb-8"
+              className="text-xs md:text-xl text-slate-700 mb-4 md:mb-8"
             >
               Showcasing excellence across film, creative direction, and photography
             </motion.p>
             
-            {/* Animated stats */}
+            {/* Animated stats - Smaller on mobile */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex justify-center gap-8 flex-wrap"
+              className="flex justify-center gap-4 md:gap-8 flex-wrap"
             >
               {[
                 { label: "Projects", value: "150+" },
@@ -272,21 +272,21 @@ export default function Portfolio() {
                   whileHover={{ scale: 1.1 }}
                   className="text-center"
                 >
-                  <div className="text-3xl font-bold text-amber-600">{stat.value}</div>
-                  <div className="text-sm text-slate-600">{stat.label}</div>
+                  <div className="text-xl md:text-3xl font-bold text-amber-600">{stat.value}</div>
+                  <div className="text-[10px] md:text-sm text-slate-600">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
         </section>
 
-        {/* Category Filter with 3D Effect */}
-        <section className="container mx-auto px-6 mb-16">
+        {/* Category Filter - Much smaller on mobile */}
+        <section className="container mx-auto px-6 mb-8 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4"
+            className="flex flex-wrap justify-center gap-2 md:gap-4"
           >
             {categories.map((category, index) => {
               const Icon = category.icon;
@@ -299,10 +299,10 @@ export default function Portfolio() {
                   transition={{ delay: 0.5 + index * 0.1 }}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`group relative flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold transition-all duration-500 overflow-hidden ${
+                  className={`group relative flex items-center gap-1.5 md:gap-3 px-3 py-2 md:px-8 md:py-4 rounded-full md:rounded-2xl text-xs md:text-base font-semibold transition-all duration-500 overflow-hidden ${
                     activeCategory === category.id
-                      ? "text-white shadow-2xl"
-                      : "bg-white text-slate-700 hover:shadow-xl border-2 border-slate-200"
+                      ? "text-white shadow-lg md:shadow-2xl"
+                      : "bg-white text-slate-700 hover:shadow-xl border border-slate-200 md:border-2"
                   }`}
                 >
                   {activeCategory === category.id && (
@@ -312,7 +312,7 @@ export default function Portfolio() {
                       transition={{ type: "spring", duration: 0.6 }}
                     />
                   )}
-                  <Icon size={24} className="relative z-10" />
+                  <Icon size={16} className="md:w-6 md:h-6 relative z-10" />
                   <span className="relative z-10">{category.name}</span>
                 </motion.button>
               );

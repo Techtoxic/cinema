@@ -9,15 +9,31 @@ interface LogoLoaderProps {
 
 export default function LogoLoader({ onComplete }: LogoLoaderProps) {
   const [isVisible, setIsVisible] = useState(true);
-  const text = "IDEAS IN MOTION • B4M STUDIOS • CINEMATIC EXCELLENCE • ";
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "IDEAS IN MOTION";
 
   useEffect(() => {
+    // Typing effect
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 100);
+
+    // Complete loading after typing finishes
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 500);
-    }, 4000);
+    }, 3500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(typingInterval);
+      clearTimeout(timer);
+    };
   }, [onComplete]);
 
   return (
@@ -33,84 +49,50 @@ export default function LogoLoader({ onComplete }: LogoLoaderProps) {
             background: "linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%)"
           }}
         >
-          {/* Centered Logo Container */}
-          <div className="relative flex items-center justify-center w-full h-full">
+          {/* Centered Container */}
+          <div className="flex flex-col items-center justify-center">
+            {/* Logo */}
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="relative"
+              className="mb-8"
             >
-              {/* Logo Circle */}
               <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-2xl animate-pulse-glow">
                 <span className="text-4xl font-bold text-white">B4M</span>
               </div>
+            </motion.div>
 
-              {/* Circular Animated Text */}
-              <svg
-                className="absolute"
-                width="280"
-                height="280"
-                viewBox="0 0 280 280"
-                style={{ 
-                  top: "50%", 
-                  left: "50%", 
-                  transform: "translate(-50%, -50%)"
-                }}
+            {/* Typing Text */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-center"
+            >
+              <p 
+                className="text-xl md:text-2xl font-bold tracking-wider"
+                style={{ color: "var(--color-primary)" }}
               >
-                <defs>
-                  <path
-                    id="circlePath"
-                    d="M 140, 140 m -120, 0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0"
-                  />
-                </defs>
-                
-                {/* Animated rotating text */}
-                <motion.g
-                  animate={{ rotate: 360 }}
-                  transition={{ 
-                    duration: 12, 
-                    repeat: Infinity, 
-                    ease: "linear" 
-                  }}
-                  style={{ transformOrigin: "140px 140px" }}
+                {displayText}
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="inline-block ml-1"
                 >
-                  <text className="text-[14px] font-bold uppercase tracking-wider" fill="var(--color-primary)">
-                    <textPath href="#circlePath" startOffset="0%">
-                      {text}
-                    </textPath>
-                  </text>
-                </motion.g>
-              </svg>
-
-              {/* Spinning outer ring */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute"
-                style={{ 
-                  top: "50%", 
-                  left: "50%", 
-                  transform: "translate(-50%, -50%)",
-                  width: "280px",
-                  height: "280px"
-                }}
-              >
-                <div 
-                  className="w-full h-full rounded-full border-2 border-dashed opacity-30"
-                  style={{ borderColor: "var(--color-primary)" }}
-                />
-              </motion.div>
+                  |
+                </motion.span>
+              </p>
             </motion.div>
 
             {/* Loading text */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute bottom-20 text-center"
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+              className="mt-8"
             >
-              <p className="text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>
+              <p className="text-xs font-medium" style={{ color: "var(--color-text-secondary)" }}>
                 Loading Experience...
               </p>
             </motion.div>

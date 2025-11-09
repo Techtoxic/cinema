@@ -8,13 +8,15 @@ interface TypingEffectProps {
   speed?: number;
   className?: string;
   showCursor?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function TypingEffect({ 
   text, 
   speed = 100, 
   className = "",
-  showCursor = true 
+  showCursor = true,
+  style
 }: TypingEffectProps) {
   const [displayedText, setDisplayedText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -32,7 +34,7 @@ export default function TypingEffect({
   }, [displayedText, text, speed]);
 
   return (
-    <span className={className}>
+    <span className={className} style={style}>
       {displayedText}
       {showCursor && (
         <motion.span

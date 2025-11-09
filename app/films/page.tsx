@@ -246,8 +246,8 @@ export default function FilmsPage() {
         </section>
 
         {/* Films Grid */}
-        <section className="container mx-auto px-6">
-          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="container mx-auto px-4 md:px-6">
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             <AnimatePresence mode="popLayout">
               {filteredFilms.map((film, index) => (
                 <motion.div

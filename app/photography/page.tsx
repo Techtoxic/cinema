@@ -197,7 +197,7 @@ export default function PhotographyPage() {
               className="inline-flex items-center gap-2 md:gap-3 mb-3 md:mb-6 px-3 py-1.5 md:px-6 md:py-3 rounded-full shadow-lg"
               style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
             >
-              <Camera className="text-white" size={16} className="md:w-7 md:h-7" />
+              <Camera className="text-white md:w-7 md:h-7" size={16} />
               <span className="text-white font-semibold text-xs md:text-lg">PHOTOGRAPHY</span>
             </motion.div>
 
@@ -244,7 +244,7 @@ export default function PhotographyPage() {
                   className="text-center"
                 >
                   <div className={`inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.color} mb-1.5 md:mb-3 shadow-lg`}>
-                    <feature.icon className="text-white" size={16} className="md:w-7 md:h-7" />
+                    <feature.icon className="text-white md:w-7 md:h-7" size={16} />
                   </div>
                   <div className="text-[9px] md:text-sm font-semibold" style={{ color: "var(--color-text)" }}>{feature.label}</div>
                 </motion.div>
@@ -461,7 +461,7 @@ export default function PhotographyPage() {
             />
 
             <div className="relative z-10">
-              <Camera size={32} className="md:w-16 md:h-16 text-white mx-auto mb-3 md:mb-6" />
+              <Camera size={32} className="text-white mx-auto mb-3 md:mb-6 md:w-16 md:h-16" />
               <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 md:mb-6">
                 Let's Capture Your Vision
               </h2>

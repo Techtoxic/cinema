@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Palette, Sparkles, TrendingUp, Lightbulb } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
+import TypingEffect from "@/components/TypingEffect";
 
 const creativeProjects = [
   {

@@ -1,6 +1,6 @@
-# B4M STUDIOS - Premium Production House Website
+# H4M STUDIOS - Premium Production House Website
 
-A stunning, highly-animated website for B4M Studios featuring cutting-edge design, advanced animations, and a premium cinematic aesthetic that impresses clients and showcases creative excellence.
+A stunning, highly-animated website for H4M Studios featuring cutting-edge design, advanced animations, and a premium cinematic aesthetic that impresses clients and showcases creative excellence.
 
 ## 🎬 Features
 
@@ -185,7 +185,7 @@ For questions or support, contact: contact@b4mstudios.com
 
 ## 📄 License
 
-© 2024 B4M Studios. All rights reserved.
+© 2024 H4M Studios. All rights reserved.
 
 ---
 

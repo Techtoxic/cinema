@@ -20,10 +20,10 @@ export default function Footer() {
               <div className="w-7 h-7 rounded-lg flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
               >
-                <span className="text-xs font-bold text-white">B4M</span>
+                <span className="text-xs font-bold text-white">H4M</span>
               </div>
               <span className="text-sm font-display font-bold" style={{ color: "var(--color-text)" }}>
-                B4M STUDIOS
+                H4M STUDIOS
               </span>
             </div>
             <p className="text-[10px] mb-3" style={{ color: "var(--color-text-secondary)" }}>
@@ -106,8 +106,8 @@ export default function Footer() {
             <ul className="space-y-1.5">
               <li className="flex items-start gap-1.5">
                 <Mail size={12} className="mt-0.5 flex-shrink-0" style={{ color: "var(--color-primary)" }} />
-                <a href="mailto:contact@b4mstudios.com" className="text-[10px] hover:underline break-all" style={{ color: "var(--color-text-secondary)" }}>
-                  contact@b4mstudios.com
+                <a href="mailto:contact@h4mstudios.com" className="text-[10px] hover:underline break-all" style={{ color: "var(--color-text-secondary)" }}>
+                  contact@h4mstudios.com
                 </a>
               </li>
               <li className="flex items-start gap-1.5">
@@ -133,7 +133,7 @@ export default function Footer() {
           style={{ borderColor: "var(--color-border)" }}
         >
           <p style={{ color: "var(--color-text-secondary)" }}>
-            © {currentYear} B4M Studios
+            © {currentYear} H4M Studios
           </p>
           <div className="flex gap-3">
             <a href="#" className="transition-colors duration-300 hover:underline"

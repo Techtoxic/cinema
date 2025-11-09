@@ -71,7 +71,7 @@ export default function LoadingAnimation({ isLoading, onComplete }: LoadingAnima
                   }}
                   className="absolute inset-0 rounded-full border-4 border-amber-400"
                 />
-                <span className="text-5xl font-bold text-amber-500">B4M</span>
+                <span className="text-5xl font-bold text-amber-500">H4M</span>
               </div>
             </motion.div>
           </motion.div>

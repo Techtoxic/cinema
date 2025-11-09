@@ -125,7 +125,7 @@ export default function HeroSection() {
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              B4M STUDIOS
+              H4M STUDIOS
             </motion.span>
             <br />
             <span className="bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-secondary)] to-[var(--color-accent)] bg-clip-text text-transparent">

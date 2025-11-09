@@ -15,7 +15,7 @@ Mac: Press Cmd + Space, type "terminal", press Enter
 
 STEP 2: Navigate to Project
 ------------------------------------
-cd "C:\Users\ADMIN\Desktop\B4M STUDIO"
+cd "C:\Users\ADMIN\Desktop\H4M STUDIO"
 
 
 STEP 3: Start Development Server
@@ -143,7 +143,7 @@ Port 3000 in use?
 → Open: http://localhost:3001
 
 Can't find folder?
-→ Check: C:\Users\ADMIN\Desktop\B4M STUDIO
+→ Check: C:\Users\ADMIN\Desktop\H4M STUDIO
 
 
 ========================================
@@ -176,7 +176,7 @@ Phase 2 (Next):
    - VISUAL_GUIDE.md (design breakdown)
 
 💻 All files ready at:
-   C:\Users\ADMIN\Desktop\B4M STUDIO
+   C:\Users\ADMIN\Desktop\H4M STUDIO
 
 
 ========================================

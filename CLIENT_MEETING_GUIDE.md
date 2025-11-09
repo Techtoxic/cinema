@@ -1,4 +1,4 @@
-# B4M STUDIOS - CLIENT MEETING PREPARATION GUIDE
+# H4M STUDIOS - CLIENT MEETING PREPARATION GUIDE
 
 ## 📋 TABLE OF CONTENTS
 1. Current Website Overview
@@ -864,12 +864,12 @@ Include these points in your agreement:
 ## 16. SAMPLE EMAIL FOLLOW-UP
 
 ```
-Subject: B4M Studios Website - Pricing & Next Steps
+Subject: H4M Studios Website - Pricing & Next Steps
 
 Hi [Client Name],
 
 Thank you for taking the time to meet with me today. I'm excited about 
-the possibility of continuing our work on the B4M Studios website.
+the possibility of continuing our work on the H4M Studios website.
 
 As discussed, here's a summary of our options:
 

@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "B4M STUDIOS - Cinematic Production House",
+  title: "H4M STUDIOS - Cinematic Production House",
   description: "Premium video production services. We create stunning commercials, narratives, and music videos that captivate audiences.",
   keywords: ["video production", "cinematography", "commercial", "music video", "narrative film"],
 };

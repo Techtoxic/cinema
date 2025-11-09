@@ -102,7 +102,7 @@ const photographyProjects = [
     id: 8,
     title: "PRODUCT EXCELLENCE",
     category: "Product",
-    photographer: "B4M TEAM",
+    photographer: "H4M TEAM",
     client: "LUXURY BRANDS",
     image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1400&q=80",
     description: "Premium product photography with meticulous attention to detail and lighting.",

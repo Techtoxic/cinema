@@ -52,13 +52,13 @@ export default function Navigation() {
                   "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
               }}
             >
-              <span className="text-sm font-bold text-white">B4M</span>
+              <span className="text-sm font-bold text-white">H4M</span>
             </div>
             <span
               className="text-lg font-display font-bold"
               style={{ color: "var(--color-text)" }}
             >
-              B4M STUDIOS
+              H4M STUDIOS
             </span>
           </Link>
 

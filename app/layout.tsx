@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "H4M STUDIOS - Cinematic Production House",
+  title: "B4M STUDIOS - Cinematic Production House",
   description: "Premium video production services. We create stunning commercials, narratives, and music videos that captivate audiences.",
   keywords: ["video production", "cinematography", "commercial", "music video", "narrative film"],
 };
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="antialiased">
         <Navigation />
         <PageTransition>
           {children}
@@ -27,4 +27,3 @@ export default function RootLayout({
     </html>
   );
 }
-

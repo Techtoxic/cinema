@@ -7,51 +7,56 @@ const stats = [
   {
     icon: Video,
     value: "500+",
-    label: "Projects Completed",
+    label: "Projects",
   },
   {
     icon: Users,
     value: "200+",
-    label: "Happy Clients",
+    label: "Clients",
   },
   {
     icon: Award,
     value: "50+",
-    label: "Awards Won",
+    label: "Awards",
   },
   {
     icon: Star,
     value: "10+",
-    label: "Years Experience",
+    label: "Years",
   },
 ];
 
 export default function StatsSection() {
   return (
-    <section className="py-24 bg-gradient-to-br from-dark-blue to-dark-charcoal text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
+    <section className="py-12 md:py-16 relative overflow-hidden"
+      style={{ 
+        background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" 
+      }}>
+      {/* Background Pattern - Reduced opacity */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-0 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-white rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-white rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
+        {/* Smaller header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-6 md:mb-8"
         >
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-4">
+          <h2 className="text-xl md:text-3xl lg:text-4xl font-display font-bold mb-2 text-white">
             Proven Excellence
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Numbers that reflect our commitment to outstanding results
+          <p className="text-xs md:text-base text-white/80 max-w-2xl mx-auto">
+            Numbers that reflect our commitment
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Smaller grid */}
+        <div className="grid grid-cols-4 gap-3 md:gap-8">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -63,13 +68,16 @@ export default function StatsSection() {
                 viewport={{ once: true }}
                 className="text-center group"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl shadow-primary/30">
-                  <Icon size={32} />
+                {/* Smaller icons */}
+                <div className="inline-flex items-center justify-center w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-lg md:rounded-xl mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <Icon size={16} className="md:w-6 md:h-6 text-white" />
                 </div>
-                <div className="text-5xl md:text-6xl font-display font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                {/* Smaller numbers */}
+                <div className="text-xl md:text-3xl lg:text-4xl font-display font-bold mb-1 text-white">
                   {stat.value}
                 </div>
-                <p className="text-gray-400 text-lg">
+                {/* Smaller labels */}
+                <p className="text-white/70 text-[10px] md:text-sm">
                   {stat.label}
                 </p>
               </motion.div>
@@ -80,4 +88,3 @@ export default function StatsSection() {
     </section>
   );
 }
-

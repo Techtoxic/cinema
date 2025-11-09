@@ -39,14 +39,20 @@ export default function Footer() {
                 <a
                   key={label}
                   href={href}
-                  className="w-7 h-7 rounded flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-7 h-7 rounded flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                   style={{ 
                     backgroundColor: "var(--color-bg)",
                     border: "1px solid var(--color-border)"
                   }}
                   aria-label={label}
                 >
-                  <Icon size={12} style={{ color: "var(--color-text-secondary)" }} />
+                  <Icon size={12} className="transition-colors duration-300" 
+                    style={{ 
+                      color: label === "IG" ? "#E4405F" : 
+                             label === "FB" ? "#1877F2" :
+                             label === "YT" ? "#FF0000" :
+                             "#0A66C2"
+                    }} />
                 </a>
               ))}
             </div>

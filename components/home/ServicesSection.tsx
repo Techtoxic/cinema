@@ -7,66 +7,71 @@ const services = [
   {
     icon: Tv,
     title: "Commercial Production",
-    description: "High-impact commercials that elevate your brand and drive results",
-    features: ["Brand Films", "Product Videos", "Advertising Campaigns"],
+    description: "High-impact commercials that elevate your brand",
+    features: ["Brand Films", "Product Videos", "Campaigns"],
   },
   {
     icon: Film,
     title: "Narrative Films",
-    description: "Compelling stories brought to life with cinematic artistry",
-    features: ["Short Films", "Documentaries", "Brand Narratives"],
+    description: "Compelling stories with cinematic artistry",
+    features: ["Short Films", "Documentaries", "Narratives"],
   },
   {
     icon: Music,
     title: "Music Videos",
-    description: "Visually stunning music videos that amplify your sound",
-    features: ["Performance Videos", "Concept Videos", "Live Sessions"],
+    description: "Visually stunning videos that amplify sound",
+    features: ["Performance", "Concept", "Live Sessions"],
   },
   {
     icon: Briefcase,
     title: "Corporate Videos",
-    description: "Professional corporate content that communicates with impact",
-    features: ["Training Videos", "Event Coverage", "Company Profiles"],
+    description: "Professional content that communicates impact",
+    features: ["Training", "Event Coverage", "Profiles"],
   },
   {
     icon: Camera,
     title: "Cinematography",
-    description: "World-class cinematography services for any production",
-    features: ["Camera Operation", "Lighting Design", "Aerial Footage"],
+    description: "World-class cinematography services",
+    features: ["Camera Ops", "Lighting", "Aerial Footage"],
   },
   {
     icon: Sparkles,
     title: "Post-Production",
-    description: "Expert editing and finishing that brings your vision to perfection",
+    description: "Expert editing and finishing",
     features: ["Color Grading", "VFX", "Sound Design"],
   },
 ];
 
 export default function ServicesSection() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-16 md:py-24 relative overflow-hidden" 
+      style={{ backgroundColor: "var(--color-surface)" }}>
       {/* Background Decoration */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-light-blue to-transparent opacity-30" />
+      <div className="absolute top-0 right-0 w-1/3 h-full opacity-10"
+        style={{ background: "linear-gradient(to left, var(--color-primary), transparent)" }} 
+      />
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
+        {/* Section Header - Smaller */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-6xl font-display font-bold mb-4 text-dark-charcoal">
+          <h2 className="text-2xl md:text-4xl lg:text-6xl font-display font-bold mb-2 md:mb-4"
+            style={{ color: "var(--color-text)" }}>
             Our Services
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xs md:text-lg max-w-2xl mx-auto"
+            style={{ color: "var(--color-text-secondary)" }}>
             Comprehensive video production services tailored to your needs
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Services Grid - Smaller cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
@@ -76,24 +81,33 @@ export default function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group bg-light-gray rounded-2xl p-8 hover:bg-white hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-primary/20"
+                className="group rounded-xl md:rounded-2xl p-4 md:p-8 transition-all duration-500 border hover:shadow-xl"
+                style={{
+                  backgroundColor: "var(--color-bg)",
+                  borderColor: "var(--color-border)",
+                }}
               >
-                <div className="w-14 h-14 bg-gradient-gold rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-primary/30">
-                  <Icon className="text-white" size={28} />
+                <div className="w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg"
+                  style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}>
+                  <Icon className="text-white" size={20} />
                 </div>
                 
-                <h3 className="text-2xl font-display font-bold mb-3 text-dark-charcoal">
+                <h3 className="text-base md:text-2xl font-display font-bold mb-2 md:mb-3"
+                  style={{ color: "var(--color-text)" }}>
                   {service.title}
                 </h3>
                 
-                <p className="text-gray-600 mb-4">
+                <p className="text-[10px] md:text-base mb-3 md:mb-4"
+                  style={{ color: "var(--color-text-secondary)" }}>
                   {service.description}
                 </p>
                 
-                <ul className="space-y-2">
+                <ul className="space-y-1 md:space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    <li key={idx} className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-sm"
+                      style={{ color: "var(--color-text-secondary)" }}>
+                      <div className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full" 
+                        style={{ backgroundColor: "var(--color-primary)" }} />
                       {feature}
                     </li>
                   ))}
@@ -106,4 +120,3 @@ export default function ServicesSection() {
     </section>
   );
 }
-

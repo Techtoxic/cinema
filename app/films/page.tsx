@@ -159,7 +159,7 @@ export default function FilmsPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-6xl md:text-8xl font-display font-bold text-white mb-6 leading-tight"
+              className="text-3xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-3 md:mb-6 leading-tight"
             >
               Stories That
               <br />
@@ -172,7 +172,7 @@ export default function FilmsPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-xl text-gray-300 max-w-3xl mx-auto mb-12"
+              className="text-xs md:text-base lg:text-xl text-gray-300 max-w-3xl mx-auto mb-6 md:mb-12"
             >
               From commercials to documentaries, music videos to narrative films — 
               we create cinematic experiences that captivate and inspire.
@@ -186,20 +186,20 @@ export default function FilmsPage() {
               className="flex justify-center gap-12 flex-wrap"
             >
               {[
-                { icon: Film, label: "Films Produced", value: "100+" },
-                { icon: Award, label: "Awards Won", value: "25+" },
-                { icon: Users, label: "Team Members", value: "50+" },
+                { icon: Film, label: "Films", value: "100+" },
+                { icon: Award, label: "Awards", value: "25+" },
+                { icon: Users, label: "Team", value: "50+" },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   whileHover={{ scale: 1.1 }}
                   className="text-center group"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 mb-3 group-hover:shadow-2xl group-hover:shadow-amber-500/50 transition-all">
-                    <stat.icon className="text-white" size={28} />
+                  <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 mb-1.5 md:mb-2 group-hover:shadow-2xl group-hover:shadow-amber-500/50 transition-all">
+                    <stat.icon className="text-white" size={16} />
                   </div>
-                  <div className="text-3xl font-bold text-white">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="text-xl md:text-2xl font-bold text-white">{stat.value}</div>
+                  <div className="text-[10px] md:text-xs text-gray-400">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -220,7 +220,7 @@ export default function FilmsPage() {
                 onClick={() => setSelectedCategory(cat)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className={`px-3 py-1.5 md:px-6 md:py-3 rounded-full text-xs md:text-base font-semibold transition-all duration-300 ${
                   selectedCategory === cat
                     ? "bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/50"
                     : "bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20"
@@ -313,24 +313,24 @@ export default function FilmsPage() {
                     </motion.div>
                   </div>
 
-                  {/* Card Footer */}
-                  <div className="p-6">
-                    <div className="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-full mb-3 uppercase">
+                  {/* Card Footer - Smaller */}
+                  <div className="p-3 md:p-6">
+                    <div className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-amber-500/20 text-amber-400 text-[9px] md:text-xs font-bold rounded-full mb-2 md:mb-3 uppercase">
                       {film.category}
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
+                    <h3 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
                       {film.title}
                     </h3>
-                    <div className="space-y-1 text-sm text-gray-400">
+                    <div className="space-y-0.5 md:space-y-1 text-[10px] md:text-sm text-gray-400">
                       <p>Director: <span className="text-gray-300">{film.director}</span></p>
                       <p>Agency: <span className="text-gray-300">{film.agency}</span></p>
                       <p>Client: <span className="text-gray-300">{film.client}</span></p>
                     </div>
-                    <div className="flex gap-2 mt-4 flex-wrap">
+                    <div className="flex gap-1 md:gap-2 mt-2 md:mt-4 flex-wrap">
                       {film.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-white/5 text-gray-400 text-xs rounded-full border border-white/10"
+                          className="px-1.5 py-0.5 md:px-2 md:py-1 bg-white/5 text-gray-400 text-[9px] md:text-xs rounded-full border border-white/10"
                         >
                           {tag}
                         </span>
@@ -356,17 +356,17 @@ export default function FilmsPage() {
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"
             />
-            <h2 className="text-5xl font-display font-bold text-white mb-6 relative z-10">
+            <h2 className="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 md:mb-6 relative z-10">
               Ready to Tell Your Story?
             </h2>
-            <p className="text-white/90 text-xl mb-8 relative z-10">
+            <p className="text-white/90 text-xs md:text-base lg:text-xl mb-4 md:mb-8 relative z-10">
               Let's create something extraordinary together
             </p>
             <motion.a
               href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-block px-10 py-5 bg-white text-amber-600 font-bold text-lg rounded-full shadow-2xl relative z-10"
+              className="inline-block px-5 py-2.5 md:px-10 md:py-5 bg-white text-amber-600 font-bold text-sm md:text-lg rounded-full shadow-2xl relative z-10"
             >
               Start a Film Project
             </motion.a>

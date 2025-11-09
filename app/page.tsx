@@ -14,19 +14,16 @@ export default function Home() {
 
   return (
     <>
-      <LogoLoader onComplete={() => setIsLoading(false)} />
+      {isLoading && <LogoLoader onComplete={() => setIsLoading(false)} />}
       
-      {!isLoading && (
-        <main className="min-h-screen">
-          <HeroSection />
-          <CategoriesShowcase />
-          <FeaturedWork />
-          <ServicesSection />
-          <StatsSection />
-          <CTASection />
-        </main>
-      )}
+      <main className={`min-h-screen transition-opacity duration-300 ${isLoading ? 'opacity-0 invisible' : 'opacity-100 visible'}`}>
+        <HeroSection />
+        <CategoriesShowcase />
+        <FeaturedWork />
+        <ServicesSection />
+        <StatsSection />
+        <CTASection />
+      </main>
     </>
   );
 }
-

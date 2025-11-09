@@ -88,7 +88,7 @@ export default function CreativePage() {
 
   return (
     <>
-      <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
+      {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
       {showSlider && !isLoading && (
         <ImageRevealSlider 
@@ -97,7 +97,7 @@ export default function CreativePage() {
         />
       )}
 
-      <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+      <main className={`min-h-screen pt-24 pb-20 transition-opacity duration-300 ${(isLoading || showSlider) ? 'opacity-0' : 'opacity-100'}`} style={{ backgroundColor: "var(--color-surface)" }}>
         {/* Hero Header */}
         <section className="container mx-auto px-6 mb-20">
           <motion.div
@@ -111,7 +111,8 @@ export default function CreativePage() {
                 rotate: [0, 10, -10, 0],
               }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg"
+              className="inline-flex items-center gap-3 mb-6 px-6 py-3 rounded-full shadow-lg"
+              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
             >
               <Palette className="text-white" size={28} />
               <span className="text-white font-semibold text-lg">CREATIVE DIRECTION</span>
@@ -121,20 +122,26 @@ export default function CreativePage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-6xl md:text-8xl font-display font-bold mb-6 leading-tight"
+              className="text-3xl md:text-5xl lg:text-7xl font-display font-bold mb-6 leading-tight"
             >
-              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 bg-clip-text text-transparent text-gradient-animate">
+              <span style={{ 
+                background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text"
+              }}>
                 Ideas That
               </span>
               <br />
-              <span className="text-slate-900">Transform Brands</span>
+              <span style={{ color: "var(--color-text)" }}>Transform Brands</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-xl text-slate-700 max-w-3xl mx-auto mb-12"
+              className="text-sm md:text-base lg:text-xl max-w-3xl mx-auto mb-12"
+              style={{ color: "var(--color-text-secondary)" }}
             >
               From concept to execution, we craft unique visual identities and creative strategies 
               that make brands stand out and connect with audiences.

@@ -60,7 +60,7 @@ const team = [
 
 export default function About() {
   return (
-    <main className="min-h-screen pt-24 pb-20">
+    <main className="min-h-screen pt-24 pb-20" style={{ backgroundColor: "var(--color-surface)" }}>
       {/* Hero Section */}
       <section className="container mx-auto px-6 mb-20">
         <motion.div
@@ -69,10 +69,16 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-dark-blue to-dark-charcoal bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl font-display font-bold mb-6"
+            style={{
+              background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text"
+            }}>
             About H4M Studios
           </h1>
-          <p className="text-xl text-gray-600 leading-relaxed mb-8">
+          <p className="text-base md:text-xl leading-relaxed mb-8" style={{ color: "var(--color-text-secondary)" }}>
             We are a passionate team of visual storytellers dedicated to creating 
             cinematic experiences that captivate, inspire, and leave lasting impressions.
           </p>
@@ -88,15 +94,15 @@ export default function About() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-display font-bold mb-6 text-dark-charcoal">
+            <h2 className="text-2xl md:text-4xl font-display font-bold mb-6" style={{ color: "var(--color-text)" }}>
               Our Mission
             </h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-4">
+            <p className="text-sm md:text-lg leading-relaxed mb-4" style={{ color: "var(--color-text-secondary)" }}>
               At H4M Studios, we believe every project deserves a cinematic touch. 
               Our mission is to transform ideas into visual masterpieces that resonate 
               with audiences and exceed expectations.
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-sm md:text-lg leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
               From concept to final delivery, we bring technical expertise, creative 
               vision, and unwavering commitment to every frame we capture.
             </p>
@@ -124,7 +130,8 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl font-display font-bold text-center mb-12 text-dark-charcoal"
+          className="text-2xl md:text-4xl font-display font-bold text-center mb-12"
+          style={{ color: "var(--color-text)" }}
         >
           What Drives Us
         </motion.h2>
@@ -138,15 +145,20 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 border"
+                style={{ 
+                  backgroundColor: "var(--color-bg)",
+                  borderColor: "var(--color-border)"
+                }}
               >
-                <div className="w-14 h-14 bg-gradient-gold rounded-xl flex items-center justify-center mb-4">
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
+                  style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}>
                   <Icon className="text-white" size={28} />
                 </div>
-                <h3 className="text-xl font-display font-bold mb-3 text-dark-charcoal">
+                <h3 className="text-xl font-display font-bold mb-3" style={{ color: "var(--color-text)" }}>
                   {value.title}
                 </h3>
-                <p className="text-gray-600">
+                <p style={{ color: "var(--color-text-secondary)" }}>
                   {value.description}
                 </p>
               </motion.div>
@@ -157,7 +169,8 @@ export default function About() {
 
       {/* Equipment Section */}
       <section className="container mx-auto px-6 mb-20">
-        <div className="bg-gradient-to-br from-dark-blue to-dark-charcoal rounded-3xl p-12 md:p-16 text-white">
+        <div className="rounded-3xl p-12 md:p-16 text-white"
+          style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -165,10 +178,10 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-display font-bold mb-4">
+            <h2 className="text-2xl md:text-4xl font-display font-bold mb-4">
               Professional Equipment
             </h2>
-            <p className="text-gray-300 text-lg">
+            <p className="text-white/80 text-sm md:text-lg">
               We utilize industry-leading gear to ensure the highest quality production
             </p>
           </motion.div>
@@ -182,7 +195,7 @@ export default function About() {
                 viewport={{ once: true }}
                 className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20 hover:bg-white/20 transition-colors duration-300"
               >
-                <p className="text-white font-medium">{item}</p>
+                <p className="text-white font-medium text-sm md:text-base">{item}</p>
               </motion.div>
             ))}
           </div>
@@ -196,7 +209,8 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-4xl font-display font-bold text-center mb-12 text-dark-charcoal"
+          className="text-2xl md:text-4xl font-display font-bold text-center mb-12"
+          style={{ color: "var(--color-text)" }}
         >
           Meet Our Talent
         </motion.h2>
@@ -216,12 +230,12 @@ export default function About() {
                   alt={member.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <h3 className="text-xl font-display font-bold text-dark-charcoal mb-1">
+              <h3 className="text-xl font-display font-bold mb-1" style={{ color: "var(--color-text)" }}>
                 {member.name}
               </h3>
-              <p className="text-primary font-medium">{member.role}</p>
+              <p className="font-medium" style={{ color: "var(--color-primary)" }}>{member.role}</p>
             </motion.div>
           ))}
         </div>
@@ -229,4 +243,3 @@ export default function About() {
     </main>
   );
 }
-

@@ -134,7 +134,7 @@ export default function PhotographyPage() {
 
   return (
     <>
-      <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
+      {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
       {showSlider && !isLoading && (
         <ImageRevealSlider 

@@ -129,7 +129,7 @@ export default function FilmsPage() {
 
   return (
     <>
-      <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
+      {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
       {showSlider && !isLoading && (
         <ImageRevealSlider 
@@ -138,7 +138,7 @@ export default function FilmsPage() {
         />
       )}
 
-      <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+      <main className={`min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 transition-opacity duration-300 ${(isLoading || showSlider) ? 'opacity-0' : 'opacity-100'}`}>
         {/* Hero Header */}
         <section className="container mx-auto px-6 mb-20">
           <motion.div

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface LogoLoaderProps {
   onComplete: () => void;
@@ -46,20 +47,26 @@ export default function LogoLoader({ onComplete }: LogoLoaderProps) {
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[100] flex items-center justify-center"
           style={{
-            background: "linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 100%)"
+            background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))"
           }}
         >
           {/* Centered Container */}
           <div className="flex flex-col items-center justify-center">
-            {/* Logo */}
+            {/* Logo - Using actual H4M logo */}
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mb-8"
+              className="mb-8 relative w-32 h-32 md:w-40 md:h-40"
             >
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-secondary)] flex items-center justify-center shadow-2xl animate-pulse-glow">
-                <span className="text-4xl font-bold text-white">B4M</span>
+              <div className="w-full h-full rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center shadow-2xl p-4">
+                <Image
+                  src="/H4M LOGO.jpg"
+                  alt="H4M Studios"
+                  fill
+                  className="object-contain rounded-xl"
+                  priority
+                />
               </div>
             </motion.div>
 
@@ -71,8 +78,7 @@ export default function LogoLoader({ onComplete }: LogoLoaderProps) {
               className="text-center"
             >
               <p 
-                className="text-xl md:text-2xl font-bold tracking-wider"
-                style={{ color: "var(--color-primary)" }}
+                className="text-xl md:text-2xl font-bold tracking-wider text-white"
               >
                 {displayText}
                 <motion.span
@@ -92,7 +98,7 @@ export default function LogoLoader({ onComplete }: LogoLoaderProps) {
               transition={{ duration: 2, repeat: Infinity, delay: 1 }}
               className="mt-8"
             >
-              <p className="text-xs font-medium" style={{ color: "var(--color-text-secondary)" }}>
+              <p className="text-xs font-medium text-white/70">
                 Loading Experience...
               </p>
             </motion.div>

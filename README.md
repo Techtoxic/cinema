@@ -148,7 +148,7 @@ The hero section will automatically loop through them with smooth transitions.
 ## ✨ Key Animations Included
 
 1. **Page Load Animations**:
-   - Animated B4M logo with rotation and pulse
+   - Animated H4M logo with rotation and pulse
    - Bottom-to-top image slider reveal
    - Smooth fade-in transitions
 

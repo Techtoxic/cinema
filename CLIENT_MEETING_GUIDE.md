@@ -485,7 +485,7 @@ Response: "I can offer flexibility in a few ways:
 4. Trade services: If you can provide video content or design assets, we can reduce costs"
 
 **"Why not use WordPress?"**
-Response: "WordPress is great for blogs, but for a premium production house like B4M:
+Response: "WordPress is great for blogs, but for a premium production house like H4M:
 - Custom animations we built aren't possible in WordPress
 - Performance would be slower (WordPress sites average 3-5 seconds load time)
 - Security vulnerabilities (WordPress is commonly hacked)
@@ -505,7 +505,7 @@ Total: 5-6 weeks. I'll provide weekly updates on progress."
 ### E. Building Urgency (Without Being Pushy)
 
 **Competitive Advantage:**
-"Other production houses in Kenya still use outdated websites or basic portfolios. This site positions B4M as the premium, tech-forward choice. In the creative industry, your digital presence IS your first impression."
+"Other production houses in Kenya still use outdated websites or basic portfolios. This site positions H4M as the premium, tech-forward choice. In the creative industry, your digital presence IS your first impression."
 
 **Cost Increase:**
 "I can hold this pricing for the next 2 weeks. After that, I have other projects lined up, and my rates typically increase 10-15% quarterly as I gain experience."
@@ -728,7 +728,7 @@ CREATE TABLE site_settings (
 
 **Emphasize Quality:**
 - "This is a custom-built solution, not a template"
-- "Every animation was hand-crafted specifically for B4M"
+- "Every animation was hand-crafted specifically for H4M"
 - "This represents the top 10% of websites in Kenya"
 
 **Build Trust:**
@@ -739,7 +739,7 @@ CREATE TABLE site_settings (
 **Create Value:**
 - "This website works for you 24/7"
 - "Your clients will notice the quality difference"
-- "It positions B4M as the premium choice"
+- "It positions H4M as the premium choice"
 
 **Handle Cost Concerns:**
 - "Let's look at the cost per month over 3 years"
@@ -898,7 +898,7 @@ All options include:
 
 Next Steps:
 If you'd like to proceed, I can send over the contract this week. 
-I'm holding the project slot for B4M until [DATE], after which I 
+I'm holding the project slot for H4M until [DATE], after which I 
 have other commitments.
 
 I'm happy to answer any additional questions. Looking forward to 
@@ -938,7 +938,7 @@ Best regards,
 
 You've got this. You've built something impressive, and you have the 
 knowledge to take it further. Trust your skills, justify your pricing 
-with value, and remember - B4M came to you because they believe in 
+with value, and remember - H4M came to you because they believe in 
 your abilities.
 
 Go close that deal! 💪

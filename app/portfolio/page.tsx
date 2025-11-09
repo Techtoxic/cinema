@@ -131,7 +131,7 @@ const projects = [
     title: "INDIE ARTIST SESSION",
     category: "film",
     agency: "INDEPENDENT",
-    director: "B4M STUDIOS",
+    director: "H4M STUDIOS",
     client: "INDIE ARTIST",
     image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&q=80",
     description: "Intimate live session music video with cinematic storytelling",

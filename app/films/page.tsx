@@ -132,7 +132,10 @@ export default function FilmsPage() {
       <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
       
       {showSlider && !isLoading && (
-        <ImageRevealSlider images={filmProjects.slice(0, 6).map(p => p.thumbnail)} />
+        <ImageRevealSlider 
+          images={filmProjects.slice(0, 6).map(p => p.thumbnail)}
+          onComplete={() => setShowSlider(false)}
+        />
       )}
 
       <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">

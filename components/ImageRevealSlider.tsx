@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 interface ImageRevealSliderProps {
@@ -19,42 +19,56 @@ export default function ImageRevealSlider({ onComplete, images }: ImageRevealSli
 
   const displayImages = images || defaultImages;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev >= displayImages.length - 1) {
-          setTimeout(() => onComplete?.(), 300);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 200); // Fast transition every 200ms
+    if (currentIndex >= displayImages.length - 1) {
+      // All images shown, wait a bit then fade out
+      const completeTimer = setTimeout(() => {
+        setIsComplete(true);
+        onComplete?.();
+      }, 400); // Show last image for 400ms then complete
+      
+      return () => clearTimeout(completeTimer);
+    }
 
-    return () => clearInterval(interval);
-  }, [displayImages.length, onComplete]);
+    // Transition to next image
+    const timer = setTimeout(() => {
+      setCurrentIndex(prev => prev + 1);
+    }, 250); // Show each image for 250ms
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, displayImages.length, onComplete]);
+
+  // Don't render if complete
+  if (isComplete) {
+    return null;
+  }
 
   return (
-    <div className="fixed inset-0 z-40 bg-black overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
-          className="absolute inset-0"
-        >
-          <img
-            src={displayImages[currentIndex]}
-            alt=""
-            className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.6) contrast(1.1)" }}
-          />
-          {/* Overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/60" />
-        </motion.div>
-      </AnimatePresence>
-    </div>
+    <motion.div 
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isComplete ? 0 : 1 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-40 bg-black overflow-hidden"
+    >
+      <motion.div
+        key={currentIndex}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="absolute inset-0"
+      >
+        <img
+          src={displayImages[currentIndex]}
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ filter: "brightness(0.6) contrast(1.1)" }}
+        />
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/60" />
+      </motion.div>
+    </motion.div>
   );
 }

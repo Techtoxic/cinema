@@ -91,7 +91,10 @@ export default function CreativePage() {
       <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
       
       {showSlider && !isLoading && (
-        <ImageRevealSlider images={creativeProjects.map(p => p.image)} />
+        <ImageRevealSlider 
+          images={creativeProjects.map(p => p.image)}
+          onComplete={() => setShowSlider(false)}
+        />
       )}
 
       <main className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">

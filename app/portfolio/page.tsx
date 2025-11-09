@@ -223,6 +223,7 @@ export default function Portfolio() {
       {showSlider && !isLoading && (
         <ImageRevealSlider 
           images={filteredProjects.slice(0, 6).map(p => p.image)}
+          onComplete={() => setShowSlider(false)}
         />
       )}
 

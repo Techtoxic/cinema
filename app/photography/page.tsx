@@ -137,7 +137,10 @@ export default function PhotographyPage() {
       <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />
       
       {showSlider && !isLoading && (
-        <ImageRevealSlider images={photographyProjects.slice(0, 6).map(p => p.image)} />
+        <ImageRevealSlider 
+          images={photographyProjects.slice(0, 6).map(p => p.image)}
+          onComplete={() => setShowSlider(false)}
+        />
       )}
 
       {/* Lightbox */}

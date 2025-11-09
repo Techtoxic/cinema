@@ -28,7 +28,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="min-h-screen pt-24 pb-20">
+    <main className="min-h-screen pt-24 pb-20" style={{ backgroundColor: "var(--color-surface)" }}>
       {/* Header */}
       <section className="container mx-auto px-6 mb-16">
         <motion.div
@@ -37,10 +37,16 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 bg-gradient-to-r from-dark-blue to-dark-charcoal bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl font-display font-bold mb-6"
+            style={{ 
+              background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text"
+            }}>
             Let's Create Together
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-sm md:text-lg" style={{ color: "var(--color-text-secondary)" }}>
             Have a project in mind? We'd love to hear about it. Get in touch with us today.
           </p>
         </motion.div>
@@ -54,14 +60,15 @@ export default function Contact() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className="bg-white rounded-3xl shadow-xl p-8 md:p-10">
-              <h2 className="text-3xl font-display font-bold mb-6 text-dark-charcoal">
+            <form onSubmit={handleSubmit} className="rounded-3xl shadow-xl p-8 md:p-10"
+              style={{ backgroundColor: "var(--color-bg)", borderColor: "var(--color-border)", border: "1px solid" }}>
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-6" style={{ color: "var(--color-text)" }}>
                 Send Us a Message
               </h2>
 
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
                     Your Name *
                   </label>
                   <input
@@ -71,13 +78,18 @@ export default function Contact() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text)"
+                    }}
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
                     Email Address *
                   </label>
                   <input
@@ -87,13 +99,18 @@ export default function Contact() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text)"
+                    }}
                     placeholder="john@example.com"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="phone" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
                     Phone Number
                   </label>
                   <input
@@ -102,13 +119,18 @@ export default function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
-                    placeholder="+1 (555) 000-0000"
+                    className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text)"
+                    }}
+                    placeholder="+254 700 000 000"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="projectType" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
                     Project Type *
                   </label>
                   <select
@@ -117,7 +139,12 @@ export default function Contact() {
                     required
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                    className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text)"
+                    }}
                   >
                     <option value="commercial">Commercial</option>
                     <option value="narrative">Narrative Film</option>
@@ -128,7 +155,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
                     Tell Us About Your Project *
                   </label>
                   <textarea
@@ -138,14 +165,20 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300 resize-none"
+                    style={{
+                      backgroundColor: "var(--color-surface)",
+                      borderColor: "var(--color-border)",
+                      color: "var(--color-text)"
+                    }}
                     placeholder="Share your vision with us..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-gold text-white font-semibold py-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-primary/30 flex items-center justify-center gap-2"
+                  className="w-full text-white font-semibold py-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+                  style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
                 >
                   <Send size={20} />
                   Send Message
@@ -161,45 +194,46 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:pt-0"
           >
-            <div className="bg-gradient-to-br from-dark-blue to-dark-charcoal rounded-3xl p-8 md:p-10 text-white h-full">
-              <h2 className="text-3xl font-display font-bold mb-6">
+            <div className="rounded-3xl p-8 md:p-10 text-white h-full"
+              style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}>
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">
                 Get In Touch
               </h2>
-              <p className="text-gray-300 mb-8 leading-relaxed">
+              <p className="text-white/80 mb-8 leading-relaxed text-sm md:text-base">
                 Whether you have a question about our services, pricing, or anything else, 
                 our team is ready to answer all your questions.
               </p>
 
               <div className="space-y-6 mb-10">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
-                    <p className="text-gray-300">contact@h4mstudios.com</p>
-                    <p className="text-gray-300">info@h4mstudios.com</p>
+                    <p className="text-white/80 text-sm">contact@h4mstudios.com</p>
+                    <p className="text-white/80 text-sm">info@h4mstudios.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Phone size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Call Us</h3>
-                    <p className="text-gray-300">(+254)703920951</p>
-                    <p className="text-gray-300">Mon-Fri, 9AM-6PM EST</p>
+                    <p className="text-white/80 text-sm">(+254)703920951</p>
+                    <p className="text-white/80 text-sm">Mon-Fri, 9AM-6PM EAT</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MapPin size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Visit Us</h3>
-                    <p className="text-gray-300">
+                    <p className="text-white/80 text-sm">
                       Nairobi, Kenya<br />
                       Kiambu Road<br />
                       P.O Box 12345
@@ -215,7 +249,7 @@ export default function Contact() {
                     <a
                       key={platform}
                       href="#"
-                      className="w-10 h-10 bg-white/10 hover:bg-primary rounded-lg flex items-center justify-center transition-colors duration-300"
+                      className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-colors duration-300"
                     >
                       <span className="text-xs font-medium">{platform[0]}</span>
                     </a>
@@ -229,4 +263,3 @@ export default function Contact() {
     </main>
   );
 }
-

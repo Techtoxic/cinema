@@ -23,7 +23,7 @@ export default function Footer() {
                 <span className="text-xs font-bold text-white">H4M</span>
               </div>
               <span className="text-sm font-display font-bold" style={{ color: "var(--color-text)" }}>
-                H4M STUDIOS
+                STUDIOS
               </span>
             </div>
             <p className="text-[10px] mb-3" style={{ color: "var(--color-text-secondary)" }}>

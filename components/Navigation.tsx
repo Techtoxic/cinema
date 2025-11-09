@@ -58,7 +58,7 @@ export default function Navigation() {
               className="text-lg font-display font-bold"
               style={{ color: "var(--color-text)" }}
             >
-              H4M STUDIOS
+              STUDIOS
             </span>
           </Link>
 

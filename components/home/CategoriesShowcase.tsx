@@ -44,19 +44,19 @@ export default function CategoriesShowcase() {
   return (
     <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <div className="container mx-auto px-6">
-        {/* Section Header */}
+        {/* Section Header - Smaller on mobile */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
           <motion.h2
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-5xl md:text-7xl font-display font-bold text-white mb-6"
+            className="text-3xl md:text-5xl lg:text-7xl font-display font-bold text-white mb-3 md:mb-6"
           >
             Our{" "}
             <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
@@ -68,7 +68,7 @@ export default function CategoriesShowcase() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-sm md:text-xl text-gray-300 max-w-3xl mx-auto px-4"
           >
             Explore our three core disciplines, each crafted with precision and passion
           </motion.p>
@@ -92,8 +92,8 @@ export default function CategoriesShowcase() {
                     transition={{ type: "spring", stiffness: 300 }}
                     className="group relative overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-md border border-white/10 hover:border-amber-500/50 transition-all duration-500 h-full"
                   >
-                    {/* Image Background */}
-                    <div className="aspect-[4/3] overflow-hidden relative">
+                    {/* Image Background - Smaller on mobile */}
+                    <div className="aspect-[4/3] md:aspect-[4/3] overflow-hidden relative">
                       <motion.img
                         src={category.image}
                         alt={category.title}
@@ -108,7 +108,7 @@ export default function CategoriesShowcase() {
                       {/* Dark Overlay for Text Readability */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
 
-                      {/* Floating Icon */}
+                      {/* Floating Icon - Smaller on mobile */}
                       <motion.div
                         animate={{
                           y: [0, -10, 0],
@@ -119,18 +119,18 @@ export default function CategoriesShowcase() {
                           repeat: Infinity,
                           ease: "easeInOut",
                         }}
-                        className="absolute top-6 right-6"
+                        className="absolute top-3 right-3 md:top-6 md:right-6"
                       >
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-2xl`}>
-                          <Icon className="text-white" size={32} />
+                        <div className={`w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-2xl`}>
+                          <Icon className="text-white" size={20} />
                         </div>
                       </motion.div>
 
-                      {/* Hover Arrow */}
+                      {/* Hover Arrow - Hidden on mobile */}
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileHover={{ opacity: 1, x: 0 }}
-                        className="absolute top-6 left-6"
+                        className="hidden md:block absolute top-6 left-6"
                       >
                         <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                           <ArrowRight className="text-white" size={24} />
@@ -138,38 +138,38 @@ export default function CategoriesShowcase() {
                       </motion.div>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-8">
-                      <div className={`inline-block px-4 py-1.5 bg-gradient-to-r ${category.color} text-white text-xs font-bold rounded-full mb-4 uppercase tracking-wider`}>
+                    {/* Content - Smaller padding on mobile */}
+                    <div className="p-4 md:p-8">
+                      <div className={`inline-block px-2 py-1 md:px-4 md:py-1.5 bg-gradient-to-r ${category.color} text-white text-[10px] md:text-xs font-bold rounded-full mb-2 md:mb-4 uppercase tracking-wider`}>
                         {category.subtitle}
                       </div>
                       
-                      <h3 className="text-3xl font-display font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
+                      <h3 className="text-xl md:text-3xl font-display font-bold text-white mb-2 md:mb-3 group-hover:text-amber-400 transition-colors">
                         {category.title}
                       </h3>
                       
-                      <p className="text-gray-300 mb-6 leading-relaxed">
+                      <p className="text-gray-300 mb-4 md:mb-6 leading-relaxed text-xs md:text-base">
                         {category.description}
                       </p>
 
-                      {/* Stats */}
-                      <div className="flex gap-6 pt-4 border-t border-white/10">
+                      {/* Stats - Smaller on mobile */}
+                      <div className="flex gap-3 md:gap-6 pt-3 md:pt-4 border-t border-white/10">
                         {Object.entries(category.stats).map(([key, value]) => (
                           <div key={key}>
-                            <div className="text-2xl font-bold text-amber-400">{value}</div>
-                            <div className="text-xs text-gray-400 uppercase tracking-wider">{key}</div>
+                            <div className="text-lg md:text-2xl font-bold text-amber-400">{value}</div>
+                            <div className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wider">{key}</div>
                           </div>
                         ))}
                       </div>
 
-                      {/* View More Link */}
+                      {/* View More Link - Smaller on mobile */}
                       <motion.div
                         initial={{ opacity: 0 }}
                         whileHover={{ opacity: 1 }}
-                        className="mt-6 flex items-center gap-2 text-amber-400 font-semibold group-hover:gap-4 transition-all"
+                        className="mt-3 md:mt-6 flex items-center gap-2 text-amber-400 text-xs md:text-base font-semibold group-hover:gap-4 transition-all"
                       >
                         <span>Explore {category.title}</span>
-                        <ArrowRight size={20} />
+                        <ArrowRight size={16} className="md:w-5 md:h-5" />
                       </motion.div>
                     </div>
 

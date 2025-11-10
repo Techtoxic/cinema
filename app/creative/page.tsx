@@ -155,8 +155,8 @@ export default function CreativePage() {
                 text="IDEAS THAT TRANSFORM BRANDS" 
                 speed={80}
                 className="block"
-                style={{ 
-                  background: `linear-gradient(135deg, var(--color-primary), var(--color-secondary))`,
+                style={{
+                  background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text"
@@ -187,21 +187,24 @@ export default function CreativePage() {
                 { icon: Palette, label: "Art Direction", color: "from-pink-500 to-pink-600" },
                 { icon: Lightbulb, label: "Concept Development", color: "from-orange-500 to-orange-600" },
                 { icon: TrendingUp, label: "Creative Consulting", color: "from-amber-500 to-amber-600" },
-              ].map((service, i) => (
-                <motion.div
-                  key={service.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 + i * 0.1 }}
-                  whileHover={{ y: -10, scale: 1.05 }}
-                  className="group p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
-                >
-                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} mb-4 group-hover:scale-110 transition-transform`}>
-                    <service.icon className="text-white" size={24} />
-                  </div>
-                  <h3 className="font-semibold text-slate-800">{service.label}</h3>
-                </motion.div>
-              ))}
+              ].map((service, i) => {
+                const iconContainerClass = "inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br " + service.color + " mb-4 group-hover:scale-110 transition-transform";
+                return (
+                  <motion.div
+                    key={service.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 + i * 0.1 }}
+                    whileHover={{ y: -10, scale: 1.05 }}
+                    className="group p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
+                  >
+                    <div className={iconContainerClass}>
+                      <service.icon className="text-white" size={24} />
+                    </div>
+                    <h3 className="font-semibold text-slate-800">{service.label}</h3>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </section>

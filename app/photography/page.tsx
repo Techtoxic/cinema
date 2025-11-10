@@ -244,18 +244,22 @@ export default function PhotographyPage() {
                 { icon: Aperture, label: "Professional Equipment", color: "from-blue-500 to-cyan-600" },
                 { icon: Zap, label: "Fast Turnaround", color: "from-amber-500 to-orange-600" },
                 { icon: Sun, label: "Natural & Studio", color: "from-purple-500 to-pink-600" },
-              ].map((feature, i) => (
-                <motion.div
-                  key={feature.label}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="text-center"
-                >
-                  <div className={`inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${feature.color} mb-1.5 md:mb-3 shadow-lg`}>
-                    <feature.icon className="text-white md:w-7 md:h-7" size={16} />
-                  </div>
-                  <div className="text-[9px] md:text-sm font-semibold" style={{ color: "var(--color-text)" }}>{feature.label}</div>
-                </motion.div>
-              ))}
+              ].map((feature, i) => {
+                const iconContainerClass = "inline-flex items-center justify-center w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br " + feature.color + " mb-1.5 md:mb-3 shadow-lg";
+                const featureLabelStyle = { color: "var(--color-text)" };
+                return (
+                  <motion.div
+                    key={feature.label}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="text-center"
+                  >
+                    <div className={iconContainerClass}>
+                      <feature.icon className="text-white md:w-7 md:h-7" size={16} />
+                    </div>
+                    <div className="text-[9px] md:text-sm font-semibold" style={featureLabelStyle}>{feature.label}</div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </section>

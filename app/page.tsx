@@ -37,9 +37,7 @@ export default function Home() {
       {isLoading && <LogoLoader onComplete={handleLoaderComplete} />}
       
       <main 
-        className={`min-h-screen transition-opacity duration-300 ${
-          showContent ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
+        className={"min-h-screen transition-opacity duration-300 " + (showContent ? 'opacity-100 visible' : 'opacity-0 invisible')}
       >
         <HeroSection />
         <CategoriesShowcase />

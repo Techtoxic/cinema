@@ -121,9 +121,7 @@ export default function CreativePage() {
       )}
 
       <main 
-        className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={"min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
         style={{ backgroundColor: "var(--color-surface)" }}
       >
         {/* Hero Header */}

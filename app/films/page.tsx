@@ -62,9 +62,7 @@ export default function FilmsPage() {
       )}
 
       <main 
-        className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 transition-opacity duration-300 ${
-          showContent ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={"min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
       >
         {/* Hero Header */}
         <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">

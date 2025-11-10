@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import ConditionalLayout from "./ConditionalLayout";
 
 export const metadata: Metadata = {
   title: "H4M STUDIOS - Cinematic Production House",
@@ -18,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <Navigation />
         <PageTransition>
-          {children}
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
         </PageTransition>
-        <Footer />
       </body>
     </html>
   );

@@ -2,122 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Film, Play, Award, Clock, Users } from "lucide-react";
+import { Film, Play } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
 import TypingEffect from "@/components/TypingEffect";
-
-const filmProjects = [
-  {
-    id: 1,
-    title: "ARRIBA MI PILSENER",
-    category: "Commercial",
-    agency: "MULLEN LOWE DELTA",
-    director: "JOAQUIN CAMBRE",
-    client: "AB INBEV",
-    image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80",
-    description: "High-energy beer commercial celebrating community and passion for football. Shot on location with dynamic crowd scenes and emotional storytelling.",
-    tags: ["Commercial", "Music Video", "Sports", "Lifestyle"],
-    year: "2024",
-    duration: "1:30",
-    crew: "45+ crew members",
-    awards: ["Best Commercial 2024", "Gold Lion Cannes", "Silver Clio"],
-    color: "from-amber-600 to-orange-700",
-  },
-  {
-    id: 2,
-    title: "ECUADOR NOS MUEVE",
-    category: "Documentary",
-    agency: "MOVISTAR",
-    director: "JUAN CARLOS MANEGLIA",
-    client: "TELEFONICA",
-    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80",
-    description: "Documentary-style narrative showcasing Ecuador's vibrant culture and connectivity through personal stories.",
-    tags: ["Documentary", "Narrative", "Cultural", "Branded Content"],
-    year: "2024",
-    duration: "2:15",
-    crew: "30+ crew members",
-    awards: ["Silver Clio", "Best Documentary Short"],
-    color: "from-blue-600 to-indigo-700",
-  },
-  {
-    id: 3,
-    title: "GIRASOL - CORAZÓN VIBRANTE",
-    category: "Music Video",
-    agency: "OGILVY ECUADOR",
-    director: "MARÍA FERNANDA",
-    client: "GIRASOL",
-    image: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=600&q=80",
-    description: "Uplifting music video featuring dance and celebration with colorful choreography and vibrant production design.",
-    tags: ["Music Video", "Dance", "Lifestyle", "Choreography"],
-    year: "2024",
-    duration: "3:20",
-    crew: "50+ crew members",
-    color: "from-pink-600 to-purple-700",
-  },
-  {
-    id: 4,
-    title: "INDIE ARTIST SESSION",
-    category: "Music Video",
-    agency: "INDEPENDENT",
-    director: "H4M STUDIOS",
-    client: "INDIE ARTIST",
-    image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80",
-    description: "Intimate live session music video with cinematic storytelling and atmospheric lighting.",
-    tags: ["Music Video", "Live Session", "Indie", "Performance"],
-    year: "2023",
-    duration: "4:15",
-    crew: "15+ crew members",
-    awards: ["Best Music Video - Indie Film Festival"],
-    color: "from-teal-600 to-cyan-700",
-  },
-  {
-    id: 5,
-    title: "AUTOMOTIVE EXCELLENCE",
-    category: "Commercial",
-    agency: "BBDO ECUADOR",
-    director: "RICARDO LEON",
-    client: "LUXURY AUTO BRAND",
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80",
-    description: "Cinematic car commercial showcasing luxury and performance with stunning cinematography.",
-    tags: ["Automotive", "Luxury", "Commercial", "CGI"],
-    year: "2023",
-    duration: "0:60",
-    crew: "40+ crew members",
-    awards: ["Best Automotive Ad"],
-    color: "from-slate-700 to-gray-900",
-  },
-  {
-    id: 6,
-    title: "FESTIVAL COVERAGE",
-    category: "Event",
-    agency: "EVENT PRODUCTION",
-    director: "H4M TEAM",
-    client: "MUSIC FESTIVAL",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=1400&q=80",
-    thumbnail: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80",
-    description: "High-energy festival recap capturing the best moments, performances, and crowd energy.",
-    tags: ["Festival", "Live Event", "Music", "Documentary"],
-    year: "2023",
-    duration: "5:30",
-    crew: "25+ crew members",
-    color: "from-violet-600 to-fuchsia-700",
-  },
-];
+import { getFilms } from "@/lib/firestore";
+import { Film as FilmType, FilmCategory } from "@/types";
 
 export default function FilmsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState<FilmCategory>("All");
   const [showContent, setShowContent] = useState(false);
+  const [films, setFilms] = useState<FilmType[]>([]);
 
   useEffect(() => {
-    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
     }, 500);
@@ -125,25 +24,39 @@ export default function FilmsPage() {
   }, []);
 
   useEffect(() => {
-    // Show content after loaders complete
+    const fetchFilmsData = async () => {
+      try {
+        const filmsData = await getFilms(selectedCategory === "All" ? undefined : selectedCategory);
+        setFilms(filmsData);
+      } catch (error) {
+        console.error("Error fetching films:", error);
+      }
+    };
+    fetchFilmsData();
+  }, [selectedCategory]);
+
+  useEffect(() => {
     if (!isLoading && !showSlider) {
       setTimeout(() => setShowContent(true), 100);
     }
   }, [isLoading, showSlider]);
 
-  const categories = ["All", "Commercial", "Music Video", "Documentary", "Event"];
-  
-  const filteredFilms = selectedCategory === "All" 
-    ? filmProjects 
-    : filmProjects.filter(f => f.category === selectedCategory);
+  const categories: FilmCategory[] = ["All", "Commercial", "Documentary"];
+  const sliderImages = films.slice(0, 6).map(f => f.image);
+
+  const getColorClass = (category: string) => {
+    return category === "Commercial" 
+      ? "from-amber-600 to-orange-700" 
+      : "from-blue-600 to-indigo-700";
+  };
 
   return (
     <>
       {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
-      {showSlider && !isLoading && (
+      {showSlider && !isLoading && sliderImages.length > 0 && (
         <ImageRevealSlider 
-          images={filmProjects.slice(0, 6).map(p => p.thumbnail)}
+          images={sliderImages}
           onComplete={() => setShowSlider(false)}
         />
       )}
@@ -162,10 +75,10 @@ export default function FilmsPage() {
                 scale: [1, 1.02, 1],
               }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="inline-flex items-center gap-3 mb-6 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
+              className="inline-flex items-center gap-2 md:gap-3 mb-3 md:mb-6 px-3 py-1.5 md:px-6 md:py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
             >
-              <Film className="text-amber-400" size={28} />
-              <span className="text-white font-semibold text-lg">FILM PRODUCTIONS</span>
+              <Film className="text-amber-400 md:w-7 md:h-7" size={16} />
+              <span className="text-white font-semibold text-xs md:text-lg">FILM PRODUCTIONS</span>
             </motion.div>
 
             <motion.h1
@@ -187,35 +100,8 @@ export default function FilmsPage() {
               transition={{ delay: 0.6 }}
               className="text-xs md:text-base lg:text-xl text-gray-300 max-w-3xl mx-auto mb-6 md:mb-12"
             >
-              From commercials to documentaries, music videos to narrative films — 
-              we create cinematic experiences that captivate and inspire.
+              From commercials to documentaries — we create cinematic experiences that captivate and inspire.
             </motion.p>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex justify-center gap-12 flex-wrap"
-            >
-              {[
-                { icon: Film, label: "Films", value: "100+" },
-                { icon: Award, label: "Awards", value: "25+" },
-                { icon: Users, label: "Team", value: "50+" },
-              ].map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  whileHover={{ scale: 1.1 }}
-                  className="text-center group"
-                >
-                  <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 mb-1.5 md:mb-2 group-hover:shadow-2xl group-hover:shadow-amber-500/50 transition-all">
-                    <stat.icon className="text-white" size={16} />
-                  </div>
-                  <div className="text-xl md:text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-[10px] md:text-xs text-gray-400">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
           </motion.div>
         </section>
 
@@ -247,113 +133,125 @@ export default function FilmsPage() {
 
         {/* Films Grid */}
         <section className="container mx-auto px-4 md:px-6">
-          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredFilms.map((film, index) => (
-                <motion.div
-                  key={film.id}
-                  layout
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    type: "spring",
-                  }}
-                  className="group relative overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-md border border-white/10 hover:border-amber-500/50 transition-all duration-500"
-                >
-                  {/* Image Container */}
-                  <div className="aspect-[16/10] overflow-hidden relative">
-                    <motion.img
-                      src={film.image}
-                      alt={film.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.15 }}
-                      transition={{ duration: 0.6 }}
-                    />
+          {films.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-20"
+            >
+              <p className="text-lg text-gray-300">
+                No films available yet. Check back soon!
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+              <AnimatePresence mode="popLayout">
+                {films.map((film, index) => (
+                  <motion.div
+                    key={film.id}
+                    layout
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: index * 0.1,
+                      type: "spring",
+                    }}
+                    className="group relative overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-md border border-white/10 hover:border-amber-500/50 transition-all duration-500"
+                  >
+                    {/* Image Container */}
+                    <div className="aspect-[16/10] overflow-hidden relative">
+                      <motion.img
+                        src={film.image}
+                        alt={film.title}
+                        className="w-full h-full object-cover"
+                        whileHover={{ scale: 1.15 }}
+                        transition={{ duration: 0.6 }}
+                      />
 
-                    {/* Gradient Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${film.color} opacity-60 mix-blend-multiply`} />
-                    
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"
-                    />
-
-                    {/* Play Button */}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileHover={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                    >
+                      {/* Gradient Overlay */}
+                      <div className={`absolute inset-0 bg-gradient-to-t ${getColorClass(film.category)} opacity-60 mix-blend-multiply`} />
+                      
                       <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-20 h-20 rounded-full bg-amber-500 flex items-center justify-center shadow-2xl shadow-amber-500/50 cursor-pointer"
-                      >
-                        <Play size={32} fill="white" color="white" />
-                      </motion.div>
-                    </motion.div>
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"
+                      />
 
-                    {/* Hover Details */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      className="absolute inset-x-0 bottom-0 p-6"
-                    >
-                      <div className="flex items-center gap-4 text-xs text-gray-300 mb-3">
-                        <span className="flex items-center gap-1">
-                          <Clock size={14} />
-                          {film.duration}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Users size={14} />
-                          {film.crew}
-                        </span>
-                      </div>
-                      <p className="text-gray-200 text-sm mb-3 line-clamp-2">
-                        {film.description}
-                      </p>
-                      {film.awards && (
-                        <div className="flex items-center gap-2 text-amber-400 text-xs">
-                          <Award size={14} />
-                          <span>{film.awards[0]}</span>
+                      {/* Trailer Icon */}
+                      {film.trailerUrl && (
+                        <div className="absolute top-4 right-4">
+                          <a
+                            href={film.trailerUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-full text-xs font-semibold transition-all shadow-lg"
+                          >
+                            <Play size={14} fill="white" />
+                            Watch Trailer
+                          </a>
                         </div>
                       )}
-                    </motion.div>
-                  </div>
 
-                  {/* Card Footer - Smaller */}
-                  <div className="p-3 md:p-6">
-                    <div className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-amber-500/20 text-amber-400 text-[9px] md:text-xs font-bold rounded-full mb-2 md:mb-3 uppercase">
-                      {film.category}
+                      {/* Play Button */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        whileHover={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                      >
+                        {film.trailerUrl ? (
+                          <a href={film.trailerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                            <motion.div
+                              whileHover={{ scale: 1.2 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="w-20 h-20 rounded-full bg-amber-500 flex items-center justify-center shadow-2xl shadow-amber-500/50 cursor-pointer"
+                            >
+                              <Play size={32} fill="white" color="white" />
+                            </motion.div>
+                          </a>
+                        ) : (
+                          <motion.div
+                            whileHover={{ scale: 1.2 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="w-20 h-20 rounded-full bg-amber-500 flex items-center justify-center shadow-2xl shadow-amber-500/50"
+                          >
+                            <Play size={32} fill="white" color="white" />
+                          </motion.div>
+                        )}
+                      </motion.div>
+
+                      {/* Hover Details */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileHover={{ opacity: 1, y: 0 }}
+                        className="absolute inset-x-0 bottom-0 p-6"
+                      >
+                        <p className="text-gray-200 text-sm mb-3 line-clamp-2">
+                          {film.description}
+                        </p>
+                      </motion.div>
                     </div>
-                    <h3 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
-                      {film.title}
-                    </h3>
-                    <div className="space-y-0.5 md:space-y-1 text-[10px] md:text-sm text-gray-400">
-                      <p>Director: <span className="text-gray-300">{film.director}</span></p>
-                      <p>Agency: <span className="text-gray-300">{film.agency}</span></p>
-                      <p>Client: <span className="text-gray-300">{film.client}</span></p>
+
+                    {/* Card Footer */}
+                    <div className="p-3 md:p-6">
+                      <div className={`inline-block px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r ${getColorClass(film.category)}/20 text-amber-400 text-[9px] md:text-xs font-bold rounded-full mb-2 md:mb-3 uppercase`}>
+                        {film.category}
+                      </div>
+                      <h3 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
+                        {film.title}
+                      </h3>
+                      <div className="space-y-0.5 md:space-y-1 text-[10px] md:text-sm text-gray-400">
+                        <p>Director: <span className="text-gray-300">{film.director}</span></p>
+                        <p>Producer: <span className="text-gray-300">{film.producer}</span></p>
+                      </div>
                     </div>
-                    <div className="flex gap-1 md:gap-2 mt-2 md:mt-4 flex-wrap">
-                      {film.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-1.5 py-0.5 md:px-2 md:py-1 bg-white/5 text-gray-400 text-[9px] md:text-xs rounded-full border border-white/10"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
         </section>
 
         {/* CTA */}
@@ -389,4 +287,3 @@ export default function FilmsPage() {
     </>
   );
 }
-

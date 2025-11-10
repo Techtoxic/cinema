@@ -19,7 +19,7 @@
   --color-border: #e2e8f0;
 }
 
-[data-theme="dark"] {
+.dark {
   /* Dark Mode (Hydra HD Color Palette) */
   --color-primary: #00d4ff;
   --color-secondary: #7c3aed;

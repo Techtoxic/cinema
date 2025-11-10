@@ -2,22 +2,50 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
+import { addContactMessage } from "@/lib/firestore";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    projectType: "commercial",
+    subject: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert("Thank you for reaching out! We'll get back to you soon.");
+    setError("");
+    setLoading(true);
+
+    try {
+      await addContactMessage({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        subject: formData.subject || "Contact Form Submission",
+        message: formData.message,
+      });
+      
+      setSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+      
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err: any) {
+      setError(err.message || "Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -65,6 +93,28 @@ export default function Contact() {
               <h2 className="text-2xl md:text-3xl font-display font-bold mb-6" style={{ color: "var(--color-text)" }}>
                 Send Us a Message
               </h2>
+
+              {success && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 rounded-lg bg-green-50 border border-green-200 flex items-center gap-3"
+                >
+                  <CheckCircle className="text-green-600" size={20} />
+                  <p className="text-sm text-green-600">Message sent successfully! We'll get back to you soon.</p>
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-center gap-3"
+                >
+                  <AlertCircle className="text-red-600" size={20} />
+                  <p className="text-sm text-red-600">{error}</p>
+                </motion.div>
+              )}
 
               <div className="space-y-6">
                 <div>
@@ -130,14 +180,15 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="projectType" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
-                    Project Type *
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
+                    Subject *
                   </label>
-                  <select
-                    id="projectType"
-                    name="projectType"
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
                     required
-                    value={formData.projectType}
+                    value={formData.subject}
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-xl border outline-none transition-all duration-300"
                     style={{
@@ -145,18 +196,13 @@ export default function Contact() {
                       borderColor: "var(--color-border)",
                       color: "var(--color-text)"
                     }}
-                  >
-                    <option value="commercial">Commercial</option>
-                    <option value="narrative">Narrative Film</option>
-                    <option value="music">Music Video</option>
-                    <option value="corporate">Corporate Video</option>
-                    <option value="other">Other</option>
-                  </select>
+                    placeholder="Project inquiry, General question, etc."
+                  />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2" style={{ color: "var(--color-text)" }}>
-                    Tell Us About Your Project *
+                    Message *
                   </label>
                   <textarea
                     id="message"
@@ -175,14 +221,26 @@ export default function Contact() {
                   />
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
-                  className="w-full text-white font-semibold py-4 rounded-full hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+                  disabled={loading}
+                  whileHover={{ scale: loading ? 1 : 1.02 }}
+                  whileTap={{ scale: loading ? 1 : 0.98 }}
+                  className="w-full text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{ background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))" }}
                 >
-                  <Send size={20} />
-                  Send Message
-                </button>
+                  {loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Send Message
+                    </>
+                  )}
+                </motion.button>
               </div>
             </form>
           </motion.div>

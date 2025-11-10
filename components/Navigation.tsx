@@ -12,6 +12,8 @@ const navLinks = [
   { href: "/films", label: "Films" },
   { href: "/creative", label: "Creative" },
   { href: "/photography", label: "Photo" },
+  { href: "/events", label: "Events" },
+  { href: "/blogs", label: "Blogs" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

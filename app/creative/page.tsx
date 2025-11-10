@@ -6,8 +6,10 @@ import { Palette, Sparkles, TrendingUp, Lightbulb } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
 import TypingEffect from "@/components/TypingEffect";
+import { getCreativeDirections } from "@/lib/firestore";
+import { CreativeDirection } from "@/types";
 
-const creativeProjects = [
+/*const creativeProjects = [
   {
     id: 1,
     title: "SUMMER VIBES 2024",
@@ -80,9 +82,9 @@ export default function CreativePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [creativeProjects, setCreativeProjects] = useState<CreativeDirection[]>([]);
 
   useEffect(() => {
-    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
     }, 500);
@@ -90,7 +92,18 @@ export default function CreativePage() {
   }, []);
 
   useEffect(() => {
-    // Show content after loaders complete
+    const fetchCreative = async () => {
+      try {
+        const creativeData = await getCreativeDirections();
+        setCreativeProjects(creativeData);
+      } catch (error) {
+        console.error("Error fetching creative directions:", error);
+      }
+    };
+    fetchCreative();
+  }, []);
+
+  useEffect(() => {
     if (!isLoading && !showSlider) {
       setTimeout(() => setShowContent(true), 100);
     }
@@ -100,9 +113,9 @@ export default function CreativePage() {
     <>
       {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
-      {showSlider && !isLoading && (
+      {showSlider && !isLoading && creativeProjects.length > 0 && (
         <ImageRevealSlider 
-          images={creativeProjects.map(p => p.image)}
+          images={creativeProjects.slice(0, 6).map(p => p.image)}
           onComplete={() => setShowSlider(false)}
         />
       )}
@@ -197,7 +210,14 @@ export default function CreativePage() {
             transition={{ delay: 1 }}
             className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8"
           >
-            {creativeProjects.map((project, index) => (
+            {creativeProjects.length === 0 ? (
+              <div className="text-center py-12 col-span-full">
+                <p style={{ color: "var(--color-text-secondary)" }}>
+                  No creative direction projects available yet. Check back soon!
+                </p>
+              </div>
+            ) : (
+              creativeProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -213,17 +233,17 @@ export default function CreativePage() {
                   className="relative overflow-hidden rounded-3xl bg-white shadow-xl hover:shadow-2xl transition-all duration-500"
                 >
                   {/* Image */}
-                  <div className="relative overflow-hidden" style={{ height: `${300 + (index % 3) * 100}px` }}>
+                  <div className="relative overflow-hidden aspect-[4/3]">
                     <motion.img
                       src={project.image}
-                      alt={project.title}
+                      alt={project.name}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     />
                     
                     {/* Colored Overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-40 mix-blend-multiply`} />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-600 opacity-40 mix-blend-multiply" />
                     
                     {/* Hover Overlay */}
                     <motion.div
@@ -231,42 +251,26 @@ export default function CreativePage() {
                       whileHover={{ opacity: 1 }}
                       className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent p-6 flex flex-col justify-end"
                     >
-                      <p className="text-white text-sm mb-4">
+                      <p className="text-white text-sm line-clamp-3">
                         {project.description}
                       </p>
-                      <div className="flex flex-wrap gap-2">
-                        {project.services.map((service) => (
-                          <span
-                            key={service}
-                            className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full border border-white/30"
-                          >
-                            {service}
-                          </span>
-                        ))}
-                      </div>
                     </motion.div>
 
-                    {/* Corner Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-bold text-slate-800">
-                      {project.year}
-                    </div>
                   </div>
 
                   {/* Card Content */}
                   <div className="p-6">
-                    <div className={`inline-block px-3 py-1 bg-gradient-to-r ${project.color} text-white text-xs font-bold rounded-full mb-3 uppercase`}>
-                      {project.type}
-                    </div>
-                    <h3 className="text-2xl font-bold text-slate-800 mb-2">
-                      {project.title}
+                    <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: "var(--color-text)" }}>
+                      {project.name}
                     </h3>
-                    <p className="text-slate-600 text-sm">
-                      Client: {project.client}
+                    <p className="text-sm line-clamp-2" style={{ color: "var(--color-text-secondary)" }}>
+                      {project.description}
                     </p>
                   </div>
                 </motion.div>
               </motion.div>
-            ))}
+            ))
+            )}
           </motion.div>
         </section>
 

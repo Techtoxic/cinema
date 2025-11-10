@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Film, Palette, Camera, ArrowRight } from "lucide-react";
+import { Film, Palette, Camera, ArrowRight, Calendar } from "lucide-react";
 
 const categories = [
   {
@@ -38,6 +38,17 @@ const categories = [
     color: "from-amber-600 to-orange-700",
     stats: { shoots: "200+", clients: "50+" },
   },
+  {
+    id: "events",
+    title: "EVENTS",
+    subtitle: "Live Experiences",
+    description: "Corporate events, concerts, festivals, and special occasions captured with excellence",
+    icon: Calendar,
+    href: "/events",
+    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80",
+    color: "from-green-600 to-teal-700",
+    stats: { events: "150+", clients: "60+" },
+  },
 ];
 
 export default function CategoriesShowcase() {
@@ -70,12 +81,12 @@ export default function CategoriesShowcase() {
             transition={{ delay: 0.2 }}
             className="text-sm md:text-xl text-gray-300 max-w-3xl mx-auto px-4"
           >
-            Explore our three core disciplines, each crafted with precision and passion
+            Explore our four core disciplines, each crafted with precision and passion
           </motion.p>
         </motion.div>
 
         {/* Categories Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (

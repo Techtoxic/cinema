@@ -6,8 +6,10 @@ import { Camera, Aperture, Zap, Sun } from "lucide-react";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ImageRevealSlider from "@/components/ImageRevealSlider";
 import TypingEffect from "@/components/TypingEffect";
+import { getPhotographies } from "@/lib/firestore";
+import { Photography, PhotoCategory } from "@/types";
 
-const photographyProjects = [
+/*const photographyProjects = [
   {
     id: 1,
     title: "FASHION EDITORIAL",
@@ -117,12 +119,12 @@ const photographyProjects = [
 export default function PhotographyPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showSlider, setShowSlider] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState<PhotoCategory>("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [showContent, setShowContent] = useState(false);
+  const [photography, setPhotography] = useState<Photography[]>([]);
 
   useEffect(() => {
-    // Optimize for slow connections - shorter delay
     const timer = setTimeout(() => {
       setShowSlider(true);
     }, 500);
@@ -130,25 +132,33 @@ export default function PhotographyPage() {
   }, []);
 
   useEffect(() => {
-    // Show content after loaders complete
+    const fetchPhotography = async () => {
+      try {
+        const photographyData = await getPhotographies(selectedCategory === "All" ? undefined : selectedCategory);
+        setPhotography(photographyData);
+      } catch (error) {
+        console.error("Error fetching photography:", error);
+      }
+    };
+    fetchPhotography();
+  }, [selectedCategory]);
+
+  useEffect(() => {
     if (!isLoading && !showSlider) {
       setTimeout(() => setShowContent(true), 100);
     }
   }, [isLoading, showSlider]);
 
-  const categories = ["All", "Fashion", "Street", "Nature", "Food", "Architecture", "Lifestyle", "Sports", "Product"];
-  
-  const filteredPhotos = selectedCategory === "All" 
-    ? photographyProjects 
-    : photographyProjects.filter(p => p.category === selectedCategory);
+  const categories: PhotoCategory[] = ["All", "Fashion", "Street", "Nature", "Food", "Architecture", "Lifestyle", "Sports", "Product"];
+  const sliderImages = photography.slice(0, 6).map(p => p.image);
 
   return (
     <>
       {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
       
-      {showSlider && !isLoading && (
+      {showSlider && !isLoading && sliderImages.length > 0 && (
         <ImageRevealSlider 
-          images={photographyProjects.slice(0, 6).map(p => p.image)}
+          images={sliderImages}
           onComplete={() => setShowSlider(false)}
         />
       )}
@@ -295,7 +305,14 @@ export default function PhotographyPage() {
             className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3 md:gap-6 space-y-3 md:space-y-6"
           >
             <AnimatePresence mode="popLayout">
-              {filteredPhotos.map((photo, index) => (
+              {photography.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <p style={{ color: "var(--color-text-secondary)" }}>
+                    No photos available yet. Check back soon!
+                  </p>
+                </div>
+              ) : (
+                photography.map((photo, index) => (
                 <motion.div
                   key={photo.id}
                   layout
@@ -317,7 +334,7 @@ export default function PhotographyPage() {
                     <div className="relative overflow-hidden">
                       <motion.img
                         src={photo.image}
-                        alt={photo.title}
+                        alt={photo.description || "Photography"}
                         className="w-full h-auto"
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.6 }}
@@ -325,7 +342,7 @@ export default function PhotographyPage() {
                       />
 
                       {/* Category Badge */}
-                      <div className={`absolute top-2 left-2 md:top-3 md:left-3 px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r ${photo.color} text-white text-[9px] md:text-xs font-bold rounded-full shadow-lg`}>
+                      <div className="absolute top-2 left-2 md:top-3 md:left-3 px-2 py-0.5 md:px-3 md:py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-[9px] md:text-xs font-bold rounded-full shadow-lg">
                         {photo.category}
                       </div>
 
@@ -335,29 +352,14 @@ export default function PhotographyPage() {
                         whileHover={{ opacity: 1 }}
                         className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-3 md:p-6 flex flex-col justify-end"
                       >
-                        <h3 className="text-base md:text-2xl font-bold text-white mb-1 md:mb-2">
-                          {photo.title}
-                        </h3>
-                        <p className="text-gray-300 text-[10px] md:text-sm mb-2 md:mb-3 line-clamp-2">
+                        <p className="text-gray-300 text-[10px] md:text-sm mb-2 md:mb-3 line-clamp-3">
                           {photo.description}
                         </p>
-                        <div className="flex items-center justify-between text-[9px] md:text-xs text-gray-400 mb-2 md:mb-3">
-                          <span>📷 {photo.photographer}</span>
-                          <span>{photo.year}</span>
-                        </div>
-                        <div className="text-[9px] md:text-xs mb-2 md:mb-3" style={{ color: "var(--color-primary)" }}>
-                          {photo.equipment}
-                        </div>
-                        <div className="flex gap-1 md:gap-2 flex-wrap">
-                          {photo.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-1.5 py-0.5 md:px-2 md:py-1 bg-white/20 backdrop-blur-sm text-white text-[9px] md:text-xs rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
+                        {photo.year && (
+                          <div className="flex items-center justify-between text-[9px] md:text-xs text-gray-400">
+                            <span>{photo.year}</span>
+                          </div>
+                        )}
                       </motion.div>
 
                       {/* Camera Icon Overlay */}
@@ -374,16 +376,24 @@ export default function PhotographyPage() {
 
                     {/* Bottom Info Bar */}
                     <div className="p-2 md:p-4" style={{ backgroundColor: "var(--color-bg)", borderTop: "1px solid var(--color-border)" }}>
-                      <h3 className="font-bold text-xs md:text-lg mb-0.5 md:mb-1" style={{ color: "var(--color-text)" }}>
-                        {photo.title}
-                      </h3>
-                      <p className="text-[10px] md:text-sm" style={{ color: "var(--color-text-secondary)" }}>
-                        {photo.client}
+                      <p className="text-[9px] md:text-xs line-clamp-2 mb-1" style={{ color: "var(--color-text)" }}>
+                        {photo.description}
                       </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[8px] md:text-xs font-medium px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--color-surface)", color: "var(--color-text-secondary)" }}>
+                          {photo.category}
+                        </span>
+                        {photo.year && (
+                          <span className="text-[8px] md:text-xs" style={{ color: "var(--color-text-secondary)" }}>
+                            {photo.year}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 </motion.div>
-              ))}
+              ))
+              )}
             </AnimatePresence>
           </motion.div>
         </section>

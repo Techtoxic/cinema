@@ -112,6 +112,7 @@ export default function CreativePage() {
   const baseMainClasses = "min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300";
   const opacityMainClass = showContent ? " opacity-100" : " opacity-0";
   const mainClassName = baseMainClasses + opacityMainClass;
+  const mainStyle = { backgroundColor: "var(--color-surface)" };
 
   return (
     <>
@@ -124,8 +125,7 @@ export default function CreativePage() {
         />
       )}
 
-      <main className={mainClassName} style={{ backgroundColor: "var(--color-surface)" }}>
-        {/* Hero Header */}
+      <main className={mainClassName} style={mainStyle}>
         <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

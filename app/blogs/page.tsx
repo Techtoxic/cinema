@@ -60,7 +60,12 @@ export default function BlogsPage() {
         />
       )}
 
-      <main className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`} style={{ backgroundColor: "var(--color-surface)" }}>
+      <main 
+        className={`min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ backgroundColor: "var(--color-surface)" }}
+      >
         {/* Hero Header */}
         <section className="container mx-auto px-4 md:px-6 mb-8 md:mb-20">
           <motion.div

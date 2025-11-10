@@ -153,7 +153,12 @@ export default function Portfolio() {
         />
       )}
 
-      <main className={`min-h-screen pt-24 pb-20 transition-opacity duration-300 ${showContent ? 'opacity-100' : 'opacity-0'}`} style={{ backgroundColor: "var(--color-surface)" }}>
+      <main 
+        className={`min-h-screen pt-24 pb-20 transition-opacity duration-300 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+        style={{ backgroundColor: "var(--color-surface)" }}
+      >
         {/* Header */}
         <section className="container mx-auto px-6 mb-8 md:mb-16 relative">
           <motion.div

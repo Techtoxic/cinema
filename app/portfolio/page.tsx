@@ -139,6 +139,12 @@ export default function Portfolio() {
     return category?.color || "from-amber-500 to-orange-600";
   };
 
+  const getMainClassName = () => {
+    const baseClasses = "min-h-screen pt-24 pb-20 transition-opacity duration-300";
+    const opacityClass = showContent ? "opacity-100" : "opacity-0";
+    return baseClasses + " " + opacityClass;
+  };
+
   return (
     <>
       <LoadingAnimation 
@@ -153,13 +159,7 @@ export default function Portfolio() {
         />
       )}
 
-      <main
-        className={
-          "min-h-screen pt-24 pb-20 transition-opacity duration-300 " +
-          (showContent ? "opacity-100" : "opacity-0")
-        }
-        style={{ backgroundColor: "var(--color-surface)" }}
-      >
+      <main className={getMainClassName()} style={{ backgroundColor: "var(--color-surface)" }}>
         {/* Header */}
         <section className="container mx-auto px-6 mb-8 md:mb-16 relative">
           <motion.div

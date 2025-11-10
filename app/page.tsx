@@ -32,13 +32,17 @@ export default function Home() {
     setShowContent(true);
   };
 
-  const mainClassName = "min-h-screen transition-opacity duration-300 " + (showContent ? "opacity-100 visible" : "opacity-0 invisible");
+  const getMainClassName = () => {
+    const baseClasses = "min-h-screen transition-opacity duration-300";
+    const visibilityClass = showContent ? "opacity-100 visible" : "opacity-0 invisible";
+    return baseClasses + " " + visibilityClass;
+  };
 
   return (
     <>
       {isLoading && <LogoLoader onComplete={handleLoaderComplete} />}
       
-      <main className={mainClassName}>
+      <main className={getMainClassName()}>
         <HeroSection />
         <CategoriesShowcase />
         <FeaturedWork />

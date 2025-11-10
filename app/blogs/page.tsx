@@ -48,6 +48,7 @@ export default function BlogsPage() {
     : blogs.filter(b => b.category === selectedCategory);
 
   const sliderImages = blogs.slice(0, 6).map(b => b.featuredImage).filter(Boolean);
+  const mainClassName = "min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? "opacity-100" : "opacity-0");
 
   return (
     <>
@@ -60,8 +61,8 @@ export default function BlogsPage() {
         />
       )}
 
-      <main 
-        className={"min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
+      <main
+        className={mainClassName}
         style={{ backgroundColor: "var(--color-surface)" }}
       >
         {/* Hero Header */}

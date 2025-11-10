@@ -109,6 +109,8 @@ export default function CreativePage() {
     }
   }, [isLoading, showSlider]);
 
+  const mainClassName = "min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? "opacity-100" : "opacity-0");
+
   return (
     <>
       {isLoading && <LoadingAnimation isLoading={isLoading} onComplete={() => setIsLoading(false)} />}
@@ -120,8 +122,8 @@ export default function CreativePage() {
         />
       )}
 
-      <main 
-        className={"min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
+      <main
+        className={mainClassName}
         style={{ backgroundColor: "var(--color-surface)" }}
       >
         {/* Hero Header */}

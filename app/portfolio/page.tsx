@@ -153,8 +153,11 @@ export default function Portfolio() {
         />
       )}
 
-      <main 
-        className={"min-h-screen pt-24 pb-20 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
+      <main
+        className={
+          "min-h-screen pt-24 pb-20 transition-opacity duration-300 " +
+          (showContent ? "opacity-100" : "opacity-0")
+        }
         style={{ backgroundColor: "var(--color-surface)" }}
       >
         {/* Header */}

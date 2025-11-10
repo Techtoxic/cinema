@@ -80,8 +80,11 @@ export default function EventsPage() {
         )}
       </AnimatePresence>
 
-      <main 
-        className={"min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " + (showContent ? 'opacity-100' : 'opacity-0')}
+      <main
+        className={
+          "min-h-screen pt-16 md:pt-24 pb-12 md:pb-20 transition-opacity duration-300 " +
+          (showContent ? "opacity-100" : "opacity-0")
+        }
         style={{ backgroundColor: "var(--color-surface)" }}
       >
         {/* Hero Header */}
